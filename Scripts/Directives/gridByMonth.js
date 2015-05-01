@@ -78,7 +78,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
 
               table.append(tblbody);
               elem.append(table);
-
+              scope.budgetdata = [];
         },true);
     }
   };
