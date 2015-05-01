@@ -1,18 +1,28 @@
-﻿var transactionEditor = function (clsTransaction, TransactionMgr) {
+﻿var transactionEditor = function (clsTransaction, TransactionMgr,TransListdropdowns) {
   //This has a dependency on transactionmanager which interfaces with the API
 
     return {
         restrict: 'EA',
         scope: {
           cancel: '=',
-          freqs: '=',
           trans: '=',
           transactions: '='
         },
-
+        
         controller: function ($scope) {
 
           var newrecord = false;
+          
+          TransListdropdowns.getTransactionTypes().then(
+              function(response) {
+                $scope.types = response;
+              });
+          
+          TransListdropdowns.getTransactionFrequencies().then(
+            function(response) {
+              $scope.freqs = response;
+            });
+
 
           //What context is this being called in?
           if ($scope.trans == undefined) {
@@ -94,3 +104,5 @@
 
     };
 };
+
+transactionEditor.$inject = ['clsTransaction', 'TransactionMgr','TransListdropdowns'];

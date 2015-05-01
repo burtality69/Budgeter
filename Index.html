@@ -113,10 +113,10 @@
                   <h5>Recurring transactions</h5>
                   <p> {{Message}} </p>
                   <!--ADD button-->
-                  <div class="button-round hvr-pop" ng-show="!addTransactionExpanded && !transactionhasfocus" ng-click="expandAddTransaction()"><i>+</i></div>
+                  <div class="button-round hvr-pop" ng-show="!addMode && !transactionhasfocus" ng-click="expandAddTransaction()"><i>+</i></div>
                   <!-- NEW TRANSACTION FORM-->
-                  <form transaction-editor ng-if="addTransactionExpanded" trans="newTransactionForm" cancel="cancelNewTransaction" add="postTransaction" freqs="Frequencies" types="TransactionTypes"> </form>
-                  <li transaction ng-repeat="trans in transactions"></li>
+                  <form transaction-editor ng-if="addMode" trans="newTransactionForm" cancel="cancelNewTransaction" add="postTransaction" freqs="Frequencies" types="TransactionTypes"> </form>
+                  <li transaction ng-repeat="trans in transactions" ng-if="!addMode"></li>
               </li>
           </ul>
       </section>

@@ -1,39 +1,44 @@
-var TransListdropdowns = function(SessionService,$http,$q){
+var TransListdropdowns = function(SessionService,$http,$q) {
 
-  var token = SessionService.getToken();
-  var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
-  var apiroot = SessionService.apiUrl;
-  var Transactionfrequencies = undefined;
-  var TransactionTypes = undefined;
+  this.token = SessionService.getToken();
+  this.headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token };
+  this.apiroot = SessionService.apiUrl;
+  this.Transactionfrequencies = undefined;
+  this.TransactionTypes = undefined;
 
-  return {
-
-    getTransactionFrequencies: function() {
+  this.getTransactionFrequencies = function() {
 
       var result = $q.defer();
 
-      if(!Transactionfrequencies) {
-      $http({method: 'GET',url: apiroot + '/api/admin/transactionfrequencies',headers: headers})
+      if(!this.Transactionfrequencies) {
+      $http({method: 'GET',url: this.apiroot + '/api/admin/transactionfrequencies',headers: this.headers})
         .success(function (response) {
-            Transactionfrequencies = response;
+            this.Transactionfrequencies = response;
             result.resolve(response);
         });
       } else {
-          result.resolve(Transactionfrequencies);
-      };
+          result.resolve(this.Transactionfrequencies);
+      }
 
       return result.promise;
-    },
+    };
 
-    getTransactionTypes: function() {
-
-      $http({method: 'GET',url: SessionService.apiUrl + '/api/admin/transactiontypes',headers: headers})
+    this.getTransactionTypes = function() {
+      
+      var result = $q.defer();
+      
+      if(!this.TransactionTypes) {
+      $http({method: 'GET',url: SessionService.apiUrl + '/api/admin/transactiontypes',headers: this.headers})
         .success(function (response) {
-            TransactionTypes = response;
+            this.TransactionTypes = response;
+            result.resolve(response);
         });
+      } else {
+        result.resolve(this.TransactionTypes);
       }
-  }
-
+      
+      return result.promise;
+  };
 };
 
 TransListdropdowns.$inject = ['SessionService','$http','$q'];
