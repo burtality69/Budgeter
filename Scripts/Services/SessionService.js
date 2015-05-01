@@ -4,8 +4,8 @@ var SessionService = function($cookies){
 
   this.token = undefined;
   this.user = undefined;
-  //this.apiUrl = 'http://budgeter.azurewebsites.net';
-  this.apiUrl = 'http://localhost:52243';
+  this.apiUrl = 'http://budgeter.azurewebsites.net';
+  //this.apiUrl = 'http://localhost:52243';
 
   this.setSession = function(token) {
       $cookies.Authtoken = token.access_token;

@@ -1,6 +1,5 @@
 var stackedBar = function (ForecastMgr) {
 
-    
     function link(scope, elem, attrs) {
 
         //Margins, width, height
@@ -154,7 +153,8 @@ var stackedBar = function (ForecastMgr) {
                 .attr("dy", ".35em")
                 .style("text-anchor", "end")
                 .text(function (d) { return d; });
-
+            
+            scope.data = [];
     };
         return {
             link: link,

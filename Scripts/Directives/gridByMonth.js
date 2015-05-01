@@ -6,22 +6,20 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
     },
 
     restrict: 'EA',
-
     controller: function($scope) {
-      
-      $scope.budgetdata = [];
       BudgetMgr.getBudget($scope.forecastparams).then(
         function(response){
           $scope.budgetdata = response.map(clsBudgetModel.build);
+          $scope.loaded = true;
         });
-
     },
+    
 
     link: function(scope,elem,attrs) {
-
-      scope.$watch('budgetdata', function(newData, oldData) {
-             if(newData) {
-
+      
+      scope.$watch('budgetdata', function(newVal) {
+          if (newVal) {
+      
                var descriptions = [];
                var columns = [];
 
@@ -56,7 +54,6 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
 
                table.append(thead);
 
-
                // Build the rows                
                for (var j =0; j < descriptions.length; j++) {
                  var row = angular.element("<tr>");
@@ -72,17 +69,17 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
                      row.append('<td class="col-md-1"></td>');
                    }
                  }
+                 
                  tblbody.append(row);
+               
                }
-              }
 
               table.append(tblbody);
               elem.append(table);
-              scope.budgetdata = [];
-        },true);
-    }
+          };
+      });
+    }  
   };
-
 };
 
 gridByMonth.$inject = ['BudgetMgr','clsBudgetModel','$filter'];
