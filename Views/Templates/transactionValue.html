@@ -1,0 +1,13 @@
+<li class="transactionvalue list-group-item clearfix" ng-model="tv">
+  <div class="transactionValue clearfix row">
+      <div class="col-xs-2">{{tv.Start_date | date:"shortDate": "UTC"}}</div>
+      <div class="col-xs-2">{{tv.FrequencyDescription}}</div>
+      <div class="col-xs-1">{{tv.Day}}</div>
+      <div class="col-xs-2">{{tv.End_date | date:"shortDate": "UTC"}}</div>
+      <div class="col-xs-2">{{tv.Value | currency:"$" }}</div>
+      <div class="col-xs-1"><i class="glyphicon glyphicon-pencil" ng-click="edit()"></i></div>
+      <div class="col-xs-1"><i class="glyphicon glyphicon-remove" ng-click="delete()"></i></div>
+  </div>
+  <!--TRANSACTION VALUE EDITOR-->
+  <div transaction-value-editor class="transactionValueEditor" ng-if="tv.editable" frequencies="Frequencies" tv="tv" transID="transID" cancel="cancelTVEdit"></div>
+</li>
