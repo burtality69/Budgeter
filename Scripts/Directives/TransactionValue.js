@@ -7,16 +7,18 @@ var transactionValue = function (clsTransactionValue,TransactionValueMgr,notific
           tv: '=',
           transID: '='
         },
-
-        controller: function ($scope) {
-
-            $scope.edit = function () {
-              $scope.tv.editable = true;
+        
+        controllerAs: 'tvCtrl',
+        controller: function () {
+            
+            var tvCtrl = this;
+            tvCtrl.edit = function () {
+              tvCtrl.tv.editable = true;
             }
 
-            $scope.delete = function () {
+            tvCtrl.delete = function () {
 
-              TransactionValueMgr.delete($scope.tv.ID).then(
+              TransactionValueMgr.delete(tvCtrl.tv.ID).then(
                 function (response) {
                   notifications.showSuccess({message: 'Task Deleted'});
                 });
@@ -27,7 +29,7 @@ var transactionValue = function (clsTransactionValue,TransactionValueMgr,notific
 
         replace: true,
 
-        link: function ($scope, element, attrs) {
+        link: function (scope, element, attrs) {
 
         }
     };

@@ -12,63 +12,63 @@
         
         controllerAs: 'tvEditCtrl',
 
-        controller: function ($scope,TransListdropdowns,notifications) {
+        controller: function (TransListdropdowns,notifications) {
             
             var tvEditCtrl = this;
             
             var backup = undefined;
             var newrecord = false;
 
-            var collapse = function() {
-              $scope.tv.editable = false;
+            tvEditCtrl.collapse = function() {
+              tvEditCtrl.tv.editable = false;
             }
 
             TransListdropdowns.getTransactionFrequencies().then(
               function(response) {
-                $scope.frequencies = response;
+                tvEditCtrl.frequencies = response;
               });
 
             //Populate model depending on context
-            if ($scope.tv == undefined) {
-              $scope.tv = new clsTransactionValue;
-              $scope.tv.TransactionID = $scope.id;
+            if (tvEditCtrl.tv == undefined) {
+              tvEditCtrl.tv = new clsTransactionValue;
+              tvEditCtrl.tv.TransactionID = tvEditCtrl.id;
               newrecord = true;
             } else {
-              backup = clsTransactionValue.build($scope.tv);
+              backup = clsTransactionValue.build(tvEditCtrl.tv);
               newrecord = false;
-              var transID = $scope.tv.TransactionID;
+              tvEditCtrl.transID = tvEditCtrl.tv.TransactionID;
             };
 
-            $scope.submit = function () {
+            tvEditCtrl.submit = function () {
 
               if (newrecord) {
-                TransactionValueMgr.post($scope.tv).then(
+                TransactionValueMgr.post(tvEditCtrl.tv).then(
                   function (response) {
                     notifications.showSuccess({message: 'Task Updated'});
-                    $scope.collapse();
+                    tvEditCtrl.collapse();
                   });
               } else {
-                TransactionValueMgr.put($scope.tv).then(
+                TransactionValueMgr.put(tvEditCtrl.tv).then(
                   function (response) {
                     notifications.showSuccess({message: 'Your task posted successfully'});
-                    collapse();
+                    tvEditCtrl.collapse();
                   });
               };
             };
 
-            $scope.cancel = function() {
+            tvEditCtrl.cancel = function() {
 
               if (newrecord) {
-                $scope.cancel();
+                tvEditCtrl.cancel();
               } else {
-                $scope.tv = backup;
-                $scope.tv.editable = false;
+                tvEditCtrl.tv = backup;
+                tvEditCtrl.tv.editable = false;
               };
             }
 
-            $scope.delete = function () {
+            tvEditCtrl.delete = function () {
 
-              TransactionValueMgr.delete($scope.tv.ID).then(
+              TransactionValueMgr.delete(tvEditCtrl.tv.ID).then(
                 function (response) {
                   notifications.showSuccess({message: 'Task deleted'});
                 });
@@ -77,7 +77,7 @@
 
         templateUrl: '/Views/Templates/transactionValueEditor.html', 
 
-        link: function ($scope, element, attrs) {
+        link: function (tvEditCtrl, element, attrs) {
 
         }
     };
