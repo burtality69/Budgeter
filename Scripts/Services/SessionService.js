@@ -1,7 +1,7 @@
 var SessionService = function($cookies){
 
 //This service manipulates an authorisation cookie for session
-
+    
   this.token = undefined;
   this.user = undefined;
   this.apiUrl = 'http://budgeter.azurewebsites.net';
@@ -33,7 +33,7 @@ var SessionService = function($cookies){
   };
 
   this.destroySession = function() {
-    $cookies.remove('Authtoken');
+    $cookies.remove("userInfo");
     $cookies.remove('userName');
   };
 

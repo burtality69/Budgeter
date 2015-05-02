@@ -1,6 +1,18 @@
 var stackedBar = function (ForecastMgr) {
+    
+    return {
+        
+        restrict: 'E',
+        scope: { data: '=' },
+        controllerAs: 'graphCtrl',
+        
+        controller: function ($scope) {
+        
+        var graphCtrl = this;
+        
+    },
 
-    function link(scope, elem, attrs) {
+    link: function(scope, elem, attrs) {
 
         //Margins, width, height
         var margin = { top: 20, right: 20, bottom: 30, left: 50 },
@@ -52,7 +64,7 @@ var stackedBar = function (ForecastMgr) {
         //Associate scope.data with the colours in a new 'amounts' array
         scope.data.forEach(function (d) {
             d.amounts = color.domain().map(function (name) { return { name: name, yPos: Math.max(0, parseInt(d[name])), height: Math.abs(d[name]) } });
-            d.labels = [d.payment_details + "\n" + d.deduction_details]
+            d.labels = [d.payment_details + " " + d.deduction_details]
             d.caldate = parseDate(d.caldate);
         });
 
@@ -139,7 +151,7 @@ var stackedBar = function (ForecastMgr) {
             .data(color.domain().slice().reverse())
             .enter().append("g")
             .attr("class", "legend")
-            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+            .attr("transform", function (d, i) { return "translate(-20," + i * 20 + ")"; });
 
             legend.append("rect")
                 .attr("x", width - 18)
@@ -155,12 +167,9 @@ var stackedBar = function (ForecastMgr) {
                 .text(function (d) { return d; });
             
             scope.data = [];
-    };
-        return {
-            link: link,
-            restrict: 'E',
-            scope: { data: '=' }
-        };
+    }
+       
+  };
 };
 
 stackedBar.$inject = ['ForecastMgr'];

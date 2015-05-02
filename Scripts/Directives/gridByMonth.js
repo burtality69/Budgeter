@@ -6,6 +6,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
     },
 
     restrict: 'EA',
+    
     controller: function($scope) {
       BudgetMgr.getBudget($scope.forecastparams).then(
         function(response){
@@ -41,17 +42,20 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
                 
                //Create a table
                var table = angular.element('<table>');
-               table.addClass("datagrid table");
+               table.addClass("datagrid table table-bordered");
                var tblbody = angular.element("<tbody>");
                var thead = angular.element('<thead>');
-               thead.append('<th></th>');
+               var row = angular.element('<tr>');
+               
+               row.append('<th></th>');
 
                //Build header
                for (var a = 0; a < columns.length; a++) {
                  var th = angular.element('<th class="col-md-1">' + columns[a] + '</th>');
-                 thead.append(th);
+                 row.append(th);
                }
-
+               
+               thead.append(row); 
                table.append(thead);
 
                // Build the rows                
@@ -64,10 +68,11 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
                  for (i =0; i < columns.length; i++) {
                    var a = $filter('filter')(filtered, columns[i]);
                    if(a.length > 0) {
-                     row.append('<td class="col-md-1">'+ a[0].Amount + '</td>');
+                     var txt = a[0].Amount;
                    } else {
-                     row.append('<td class="col-md-1"></td>');
+                     txt = "";
                    }
+                   row.append('<td class="col-sm-1">'+ txt + '</td>');
                  }
                  
                  tblbody.append(row);

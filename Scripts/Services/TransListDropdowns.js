@@ -1,44 +1,51 @@
 var TransListdropdowns = function(SessionService,$http,$q) {
+  
+  var ctrl = this;
+  
+  ctrl.token = SessionService.getToken();
+  ctrl.headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ctrl.token };
+  ctrl.apiroot = SessionService.apiUrl;
+  ctrl.Transactionfrequencies = undefined;
+  ctrl.TransactionTypes = undefined;
 
-  this.token = SessionService.getToken();
-  this.headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token };
-  this.apiroot = SessionService.apiUrl;
-  this.Transactionfrequencies = undefined;
-  this.TransactionTypes = undefined;
-
-  this.getTransactionFrequencies = function() {
+  ctrl.getTransactionFrequencies = function() {
 
       var result = $q.defer();
 
-      if(!this.Transactionfrequencies) {
-      $http({method: 'GET',url: this.apiroot + '/api/admin/transactionfrequencies',headers: this.headers})
+      if(!ctrl.Transactionfrequencies) {
+      $http({method: 'GET',url: ctrl.apiroot + '/api/admin/transactionfrequencies',headers: ctrl.headers})
         .success(function (response) {
-            this.Transactionfrequencies = response;
+            ctrl.Transactionfrequencies = response;
             result.resolve(response);
         });
       } else {
-          result.resolve(this.Transactionfrequencies);
+          result.resolve(ctrl.Transactionfrequencies);
       }
 
       return result.promise;
     };
 
-    this.getTransactionTypes = function() {
+    ctrl.getTransactionTypes = function() {
       
       var result = $q.defer();
       
-      if(!this.TransactionTypes) {
-      $http({method: 'GET',url: SessionService.apiUrl + '/api/admin/transactiontypes',headers: this.headers})
+      if(!ctrl.TransactionTypes) {
+      $http({method: 'GET',url: SessionService.apiUrl + '/api/admin/transactiontypes',headers: ctrl.headers})
         .success(function (response) {
-            this.TransactionTypes = response;
+            ctrl.TransactionTypes = response;
             result.resolve(response);
         });
       } else {
-        result.resolve(this.TransactionTypes);
+        result.resolve(ctrl.TransactionTypes);
       }
       
       return result.promise;
   };
+  
+   return {
+        getTransactionFrequencies: ctrl.getTransactionFrequencies,
+        getTransactionTypes: ctrl.getTransactionTypes
+      };
 };
 
 TransListdropdowns.$inject = ['SessionService','$http','$q'];

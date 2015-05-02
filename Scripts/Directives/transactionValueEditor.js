@@ -9,9 +9,13 @@
           tv: '=',
           transID: '='
         },
+        
+        controllerAs: 'tvEditCtrl',
 
         controller: function ($scope,TransListdropdowns,notifications) {
-
+            
+            var tvEditCtrl = this;
+            
             var backup = undefined;
             var newrecord = false;
 

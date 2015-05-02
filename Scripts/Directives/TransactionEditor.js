@@ -1,4 +1,4 @@
-﻿var transactionEditor = function (clsTransaction, TransactionMgr,TransListdropdowns) {
+﻿var transactionEditor = function (clsTransaction, TransactionMgr,TransListdropdowns,notifications,$rootscope) {
   //This has a dependency on transactionmanager which interfaces with the API
 
     return {
@@ -39,7 +39,8 @@
               TransactionMgr.post($scope.Trans).then(
                 function (response) {
                   console.log(response);
-                  $scope.Trans.message = response;
+                  $rootScope.$broadcast('redrawChart');
+                  notifications.showSuccess({message: 'Task Updated'});
                 });
             } else {
               TransactionMgr.put($scope.Trans).then(
@@ -105,4 +106,4 @@
     };
 };
 
-transactionEditor.$inject = ['clsTransaction', 'TransactionMgr','TransListdropdowns'];
+transactionEditor.$inject = ['clsTransaction', 'TransactionMgr','TransListdropdowns','notifications'];

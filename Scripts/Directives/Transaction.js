@@ -5,24 +5,42 @@ var transaction = function(clsTransaction,clsTransactionValue) {
     replace: true,
     scope: {
         trans: '=',
-        transactions: '=',
-        listmgr: '='
+        listmgr: '=',
+        index: '='
     },
-
+    
+    bindToController: true,
+    controllerAs: 'transCtrl',
     controller: function ($scope) {
+      
+      var transCtrl = this;
+      
+      transCtrl.visible = function() {
+          return !transCtrl.listmgr.addmode && transCtrl.index == transCtrl.listmgr.selecteditem || transCtrl.listmgr.selecteditem == undefined;
+      };
+      
+      transCtrl.barclass = function() {
+        var v = transCtrl.trans.TypeDescription;
+        return v == 'Income' ? 'progress-bar-success' : (v == 'Savings' ? 'progress-bar-warning' : 'progress-bar-danger');
+      };
+      
+      transCtrl.labelclass = function() {
+        var v = transCtrl.trans.TypeDescription;
+        return v == 'Income' ? 'label label-success' : (v == 'Savings' ? 'label label-warning' : 'label label-danger');
+      };
 
-      $scope.visible = function() {
-          return !$scope.listmgr.addmode && $scope.$parent.$index == $scope.listmgr.selecteditem || $scope.listmgr.selecteditem == undefined;
-      }
-
-      $scope.expandTransaction = function () {
-        if(!$scope.trans.expanded) {
-          $scope.listmgr.selecteditem = $scope.$parent.$index;
-          $scope.trans.expanded = true;
+      transCtrl.expandTransaction = function () {
+        if(!transCtrl.trans.expanded) {
+          transCtrl.listmgr.selecteditem = transCtrl.index;
+          transCtrl.trans.expanded = true;
         } else {
-          $scope.listmgr.selecteditem = undefined;
-          $scope.trans.expanded = false;
+          transCtrl.listmgr.selecteditem = undefined;
+          transCtrl.trans.expanded = false;
         };
+      };
+      
+      transCtrl.addTV = function () {
+        transCtrl.addTVMode = true;
       };
 
     },

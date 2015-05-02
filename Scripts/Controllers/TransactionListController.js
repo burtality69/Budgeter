@@ -20,27 +20,6 @@
         $scope.addMode = false;
     };
 
-    $scope.expandNewTV= function () {
-        $scope.addTVExpanded = true;
-    };
-
-    $scope.cancelNewTV = function () {
-      $scope.addTVExpanded = false;
-    };
-
-    $scope.closeTVEditor = function(tv) {
-      if(tv === undefined) {
-        $scope.addTVExpanded = false;
-      }
-    };
-
-    $scope.deleteTransaction = function(t) {
-      TransactionMgr.delete(t).then(
-        function (response) {
-        $scope.Message = response;
-      });
-    };
-
     //GET
     var refreshTransactions = function () {
         TransactionMgr.get().then(
@@ -48,8 +27,11 @@
             $scope.transactions = response.map(clsTransaction.build);
         });
     };
-
+    
+    
     refreshTransactions();
+    
+    $scope.$on('refreshTList',refreshTransactions());
 
 };
 TransactionListController.$inject = ['$rootScope','$scope','clsTransaction','TransactionMgr'];
