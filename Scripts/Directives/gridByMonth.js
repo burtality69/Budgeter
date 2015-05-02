@@ -1,40 +1,46 @@
 var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
 
   return {
+    restrict: 'EA',
     scope: {
       forecastparams:'='
     },
 
-    restrict: 'EA',
+    bindToController: true,
+    controllerAs: 'gridCtrl',
     
     controller: function($scope) {
-      BudgetMgr.getBudget($scope.forecastparams).then(
+
+      var gridCtrl = this;
+      
+      gridCtrl.budgetdata = [];
+      
+      BudgetMgr.getBudget(gridCtrl.forecastparams).then(
         function(response){
-          $scope.budgetdata = response.map(clsBudgetModel.build);
-          $scope.loaded = true;
+          gridCtrl.budgetdata = response.map(clsBudgetModel.build);
         });
     },
     
 
     link: function(scope,elem,attrs) {
-      
-      scope.$watch('budgetdata', function(newVal) {
-          if (newVal) {
-      
+            
+      scope.$watch(function(){return scope.gridCtrl.budgetdata;},
+        function(newVal) {
+          if (newVal.length > 0) {
                var descriptions = [];
                var columns = [];
 
                //Gather descriptions
-               for (var i=0; i < scope.budgetdata.length; i++) {
-                 if (descriptions.indexOf(scope.budgetdata[i].Description) === -1 && scope.budgetdata[i].Description !== undefined)
+               for (var i=0; i < newVal.length; i++) {
+                 if (descriptions.indexOf(newVal[i].Description) === -1 && newVal[i].Description !== undefined)
                     {
-                      descriptions.push(scope.budgetdata[i].Description);
+                      descriptions.push(newVal[i].Description);
                     }
                }
 
                //Put dates into columns
-                for (var i = 0; i < scope.budgetdata.length; i++) {
-                  var v = scope.budgetdata[i].Month; 
+                for (var i = 0; i < newVal.length; i++) {
+                  var v = newVal[i].Month; 
                   if (columns.indexOf(v) == -1) {
                       columns.push(v);
                   }
@@ -63,7 +69,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
                  var row = angular.element("<tr>");
                  row.append('<td class="col-md-1">' + descriptions[j] + '</td>');
 
-                 var filtered = $filter('filter')(scope.budgetdata, descriptions[j]);
+                 var filtered = $filter('filter')(newVal, descriptions[j]);
                  
                  for (i =0; i < columns.length; i++) {
                    var a = $filter('filter')(filtered, columns[i]);
@@ -81,8 +87,10 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
 
               table.append(tblbody);
               elem.append(table);
-          };
-      });
+              
+              scope.gridCtrl.budgetdata = [];
+          }
+      },true);
     }  
   };
 };

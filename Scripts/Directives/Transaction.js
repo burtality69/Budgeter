@@ -11,7 +11,7 @@ var transaction = function(clsTransaction,clsTransactionValue) {
     
     bindToController: true,
     controllerAs: 'transCtrl',
-    controller: function ($scope) {
+    controller: function () {
       
       var transCtrl = this;
       
