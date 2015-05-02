@@ -9,6 +9,7 @@ var transactionValue = function (clsTransactionValue,TransactionValueMgr,notific
         },
         
         controllerAs: 'tvCtrl',
+        bindToController: true,
         controller: function () {
             
             var tvCtrl = this;
