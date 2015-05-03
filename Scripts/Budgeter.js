@@ -19,6 +19,7 @@ Budgeter.directive('transactionValueEditor', transactionValueEditor);
 Budgeter.directive('transactionEditor', transactionEditor);
 Budgeter.directive('transaction',transaction);
 
+Budgeter.service('forecastParams',forecastParams);
 Budgeter.service('SessionService', SessionService);
 Budgeter.service('DateParser',DateParser);
 

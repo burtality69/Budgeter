@@ -39,6 +39,7 @@
     <script src="Scripts\Services\DateParser.js"></script>
     <script src="Scripts\Services\SessionService.js"></script>
     <script src="Scripts\Services\TransListDropdowns.js"></script>
+    <script src="Scripts\Services\forecastParams.js"></script>
     <script src="Scripts\Budgeter.js"></script>
 </head>
 <body>
@@ -52,33 +53,33 @@
     <div notifications-bar class="notifications"></div notifications-bar>
     <main>
         <!--FORECAST-->
-      <section class="forecast col-lg-8" ng-controller="ForecastController">
+      <section class="forecast col-lg-8" ng-controller="ForecastController as fCtrl">
           <div class="forecastheader">
               <div class="forecastTitle boxtitle">
-                  <span>Forecast for {{forecastParams.startdate | date:"longDate":"UTC"}} - {{forecastParams.enddate | date:"longDate" : "UTC" }} (starting balance: ${{forecastParams.startbal}}) </span>
-                  <i ng-click="showParameters()" class="glyphicon glyphicon-pencil"></i>
-                  <label for="graphview">Graph View</label>
-                  <input id="graphview" type="radio" name="content" ng-model="forecastview" value="graph">
-                  <label for="tableview">Table View</label>
-                  <input id="tableview" type="radio" name="content" ng-model="forecastview" value="table">
+                  <span>Forecast for {{fCtrl.forecastParams.startdate | date:"longDate":"UTC"}} - {{fCtrl.forecastParams.enddate | date:"longDate" : "UTC" }} (starting balance: ${{fCtrl.forecastParams.startbal}}) </span>
+                  <i ng-click="fCtrl.showParameters()" class="glyphicon glyphicon-pencil"></i>
               </div>
-              <form class="form-inline forecastparameters" ng-if="parametersOn">
+              <form class="form-inline forecastparameters" ng-if="fCtrl.parametersOn">
                   <div class="form-group form-inline">
-                      <input type="date" class="input-xs-flat" ng-model="forecastParams.startdate" min-date="minDate" ng-required="true" />
-                      <input type="date" class="input-xs-flat" ng-model="forecastParams.enddate" min-date="minDate" ng-required="true" />
-                      <input type="number" class="input-xs-flat" ng-model="forecastParams.startbal" step="100" id="startbal" placeholder="Enter your current balance">
-                      <button type="button" class="btn btn-primary btn-xs" ng-click="refreshChart()"><i class="glyphicon glyphicon-refresh"></i></button>
+                      <input type="date" class="input-xs-flat" ng-model="fCtrl.forecastParams.startdate" min-date="minDate" ng-required="true" />
+                      <input type="date" class="input-xs-flat" ng-model="fCtrl.forecastParams.enddate" min-date="minDate" ng-required="true" />
+                      <input type="number" class="input-xs-flat" ng-model="fCtrl.forecastParams.startbal" step="100" id="startbal" placeholder="Enter your current balance">
+                      <button type="button" class="btn btn-primary btn-xs" ng-click="fCtrl.refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
+                      <label for="graphview">Graph View</label>
+                      <input id="graphview" type="radio" name="content" ng-model="fCtrl.forecastview" value="graph">
+                      <label for="tableview">Table View</label>
+                      <input id="tableview" type="radio" name="content" ng-model="fCtrl.forecastview" value="table">  
                   </div>
               </form>
           </div>
           <!--GRAPH-->
-          <div ng-if="forecastview=='graph'">
+          <div ng-if="fCtrl.forecastview=='graph'">
             <!--<div class="graphloading spinner" ng-if="!graphCtrl.data">
               <div class="cube1"></div>
               <div class="cube2"></div>
             </div>-->
             <div class="forecastdatabound">
-              <stacked-bar class="graphcontainer clearfix" forecastParams="forecastParams"></stacked-bar>
+              <stacked-bar class="graphcontainer clearfix"></stacked-bar>
               <!--HEADLINES-->
               <div class="headlines row">
                   <div class="headline savings">
@@ -100,8 +101,8 @@
               </div>
             </div>
           </div>
-          <div ng-if="forecastview == 'table'">
-            <div grid-by-month forecastparams="forecastParams" class="gridByMonth"></div>
+          <div ng-if="fCtrl.forecastview == 'table'">
+            <div grid-by-month class="gridByMonth"></div>
           </div>
       </section>
 

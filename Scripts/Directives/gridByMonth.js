@@ -1,11 +1,7 @@
-var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
+var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
 
   return {
     restrict: 'EA',
-    scope: {
-      forecastparams:'='
-    },
-
     bindToController: true,
     controllerAs: 'gridCtrl',
     
@@ -13,9 +9,11 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
 
       var gridCtrl = this;
       
+      gridCtrl.forecastParams = forecastParams.getparams();
+      
       gridCtrl.budgetdata = [];
       
-      BudgetMgr.getBudget(gridCtrl.forecastparams).then(
+      BudgetMgr.getBudget(gridCtrl.forecastParams).then(
         function(response){
           gridCtrl.budgetdata = response.map(clsBudgetModel.build);
         });
@@ -25,8 +23,8 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
     link: function(scope,elem,attrs) {
             
       scope.$watch(function(){return scope.gridCtrl.budgetdata;},
-        function(newVal) {
-          if (newVal.length > 0) {
+        function(newVal,oldVal) {
+          if (newVal !== oldVal) {
                var descriptions = [];
                var columns = [];
 
@@ -95,4 +93,4 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter) {
   };
 };
 
-gridByMonth.$inject = ['BudgetMgr','clsBudgetModel','$filter'];
+gridByMonth.$inject = ['BudgetMgr','clsBudgetModel','$filter','forecastParams'];

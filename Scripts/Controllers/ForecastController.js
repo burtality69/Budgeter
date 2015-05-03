@@ -1,32 +1,33 @@
-var ForecastController = function ($rootScope,$scope,ForecastMgr) {
+var ForecastController = function ($rootScope,$scope,forecastParams) {
 
-    //Defaults
+  var ForecastController = this; 
+  
+  ForecastController.forecastview = 'graph';
 
-    var startdate = new Date();
-    var enddate = new Date();
-    enddate.setDate(enddate.getDate() + 90);
+  ForecastController.forecastParams = forecastParams.getparams();
 
-    $scope.forecastview = 'graph';
-
-    $scope.forecastParams = {
-        startbal: 0,
-        startdate: startdate,
-        enddate: enddate
-    };
-
-    $scope.headlines = {
-        balance: 0,
-        savings: 0,
-        income: 0,
-        outgoing: 0
-    };
-
-//Chart Stuff
-
-  $scope.showParameters = function () {
-      $scope.parametersOn = !$scope.parametersOn;
+  ForecastController.headlines = {
+      balance: 0,
+      savings: 0,
+      income: 0,
+      outgoing: 0
+  };
+      //Chart Stuff
+  ForecastController.showParameters = function () {
+      ForecastController.parametersOn = !ForecastController.parametersOn;
+  };
+  
+  ForecastController.refresh = function() {
+      
+      forecastParams.setparams(ForecastController.forecastParams);
+      
+      if(ForecastController.forecastview = 'graph') {
+          $scope.$broadcast('redrawChart');
+      } else {
+          $scope.$broadcast('redrawGrid');
+      }
   };
 
 };
 
-ForecastController.$inject = ['$rootScope','$scope','ForecastMgr','BudgetMgr','clsBudgetModel'];
+ForecastController.$inject = ['$rootScope','$scope','forecastParams'];
