@@ -3,12 +3,42 @@ var stackedBar = function (ForecastMgr) {
     return {
         
         restrict: 'E',
-        scope: { data: '=' },
+        scope: { 
+            forecastParams: '='
+        },
+        bindToController: true,
         controllerAs: 'graphCtrl',
-        
         controller: function ($scope) {
         
         var graphCtrl = this;
+        
+        graphCtrl.data = undefined;
+        
+        graphCtrl.refresh = function() {
+            ForecastMgr.getForecast(graphCtrl.forecastParams).then(
+            function (response) {
+    
+                graphCtrl.data = response;
+    
+                var lastrow = response[response.length - 1];
+                var income = 0;
+                var outgoing = 0;
+    
+                for (var i = 0; i < response.length; i++) {
+                    income += response[i].total_payments;
+                    outgoing += response[i].total_deductions;
+                }
+    
+                graphCtrl.headlines.balance = lastrow.balance;
+                graphCtrl.headlines.savings = lastrow.total_savings;
+                graphCtrl.headlines.income = income;
+                graphCtrl.headlines.outgoing = outgoing;
+            });
+        };
+        
+        graphCtrl.refresh();
+        
+        $scope.$on('redrawChart',graphCtrl.refresh());
         
     },
 

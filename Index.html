@@ -25,7 +25,6 @@
     <script src="Scripts\Models\clsTransactionValue.js"></script>
     <script src="Scripts\Models\clsBudgetModel.js"></script>
     <!--Controllers-->
-    <script src="Scripts\Controllers\AppController.js"></script>
     <script src="Scripts\Controllers\AuthController.js"></script>
     <script src="Scripts\Controllers\TransactionListController.js"></script>
     <script src="Scripts\Controllers\ForecastController.js"></script>
@@ -44,10 +43,10 @@
 </head>
 <body>
     <!--Header-->
-    <header class="NavBar clearfix" ng-if="!loggedIn()" ng-controller="AppController">
+    <header class="NavBar clearfix" ng-if="!loggedIn()" ng-controller="AuthController as authCtrl">
       <div class="loginpanel">
-          <a href="" ng-if="!loggedIn()" ng-click="openModal()">Sign In</a>
-          <a href="" ng-if="loggedIn()" ng-click="logOut()">Sign Out</a>
+          <a href="" ng-if="!authCtrl.loggedIn()" ng-click="authCtrl.openModal()">Sign In</a>
+          <a href="" ng-if="authCtrl.loggedIn()" ng-click="authCtrl.logOut()">Sign Out</a>
       </div>
     </header>
     <div notifications-bar class="notifications"></div notifications-bar>
@@ -74,12 +73,12 @@
           </div>
           <!--GRAPH-->
           <div ng-if="forecastview=='graph'">
-            <div class="graphloading spinner" ng-if="!data">
+            <!--<div class="graphloading spinner" ng-if="!graphCtrl.data">
               <div class="cube1"></div>
               <div class="cube2"></div>
-            </div>
-            <div class="forecastdatabound" ng-if="data">
-              <stacked-bar class="graphcontainer clearfix" data="data"></stacked-bar>
+            </div>-->
+            <div class="forecastdatabound">
+              <stacked-bar class="graphcontainer clearfix" forecastParams="forecastParams"></stacked-bar>
               <!--HEADLINES-->
               <div class="headlines row">
                   <div class="headline savings">
@@ -116,7 +115,7 @@
                   <div class="button-round hvr-pop" ng-show="!addMode && !transactionhasfocus" ng-click="expandAddTransaction()"><i>+</i></div>
                   <!-- NEW TRANSACTION FORM-->
                   <form transaction-editor ng-if="addMode" trans="newTransactionForm" cancel="cancelNewTransaction" add="postTransaction" freqs="Frequencies" types="TransactionTypes"> </form>
-                  <li transaction ng-repeat="trans in transactions" ng-if="!addMode"></li>
+                  <li transaction ng-repeat="trans in ::transactions" ng-if="!addMode"></li>
               </li>
           </ul>
       </section>

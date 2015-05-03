@@ -8,7 +8,6 @@ Budgeter.factory('TransactionValueMgr',TransactionValueMgr);
 Budgeter.factory('BudgetMgr', BudgetMgr);
 Budgeter.factory('clsBudgetModel',clsBudgetModel);
 Budgeter.factory('TransListdropdowns', TransListdropdowns);
-Budgeter.controller('AppController', AppController);
 Budgeter.controller('AuthController', AuthController);
 Budgeter.controller('ForecastController', ForecastController);
 Budgeter.controller('TransactionListController', TransactionListController);
