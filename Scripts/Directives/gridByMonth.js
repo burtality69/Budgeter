@@ -13,10 +13,14 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
       
       gridCtrl.budgetdata = [];
       
-      BudgetMgr.getBudget(gridCtrl.forecastParams).then(
-        function(response){
-          gridCtrl.budgetdata = response.map(clsBudgetModel.build);
-        });
+      gridCtrl.redrawGrid = function() {
+          BudgetMgr.getBudget(gridCtrl.forecastParams).then(
+            function(response){
+              gridCtrl.budgetdata = response.map(clsBudgetModel.build);
+            });
+      }
+
+        $scope.$on('redrawGrid',gridCtrl.redrawGrid());
     },
     
 

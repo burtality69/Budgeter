@@ -1,4 +1,4 @@
-var ForecastController = function ($rootScope,$scope,forecastParams) {
+var ForecastController = function ($scope,forecastParams) {
 
   var ForecastController = this; 
   
@@ -12,7 +12,8 @@ var ForecastController = function ($rootScope,$scope,forecastParams) {
       income: 0,
       outgoing: 0
   };
-      //Chart Stuff
+  
+  //Chart Stuff
   ForecastController.showParameters = function () {
       ForecastController.parametersOn = !ForecastController.parametersOn;
   };
@@ -21,7 +22,7 @@ var ForecastController = function ($rootScope,$scope,forecastParams) {
       
       forecastParams.setparams(ForecastController.forecastParams);
       
-      if(ForecastController.forecastview = 'graph') {
+      if(ForecastController.forecastview == 'graph') {
           $scope.$broadcast('redrawChart');
       } else {
           $scope.$broadcast('redrawGrid');
@@ -30,4 +31,4 @@ var ForecastController = function ($rootScope,$scope,forecastParams) {
 
 };
 
-ForecastController.$inject = ['$rootScope','$scope','forecastParams'];
+ForecastController.$inject = ['$scope','forecastParams'];
