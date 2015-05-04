@@ -9,9 +9,10 @@ Budgeter.factory('BudgetMgr', BudgetMgr);
 Budgeter.factory('clsBudgetModel',clsBudgetModel);
 Budgeter.factory('TransListdropdowns', TransListdropdowns);
 Budgeter.controller('AuthController', AuthController);
-Budgeter.controller('ForecastController', ForecastController);
+Budgeter.controller('forecastController', forecastController);
 Budgeter.controller('TransactionListController', TransactionListController);
 
+Budgeter.directive('forecastControls',forecastControls);
 Budgeter.directive('stackedBar', stackedBar);
 Budgeter.directive('gridByMonth', gridByMonth);
 Budgeter.directive('transactionValue', transactionValue);

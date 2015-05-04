@@ -27,8 +27,9 @@
     <!--Controllers-->
     <script src="Scripts\Controllers\AuthController.js"></script>
     <script src="Scripts\Controllers\TransactionListController.js"></script>
-    <script src="Scripts\Controllers\ForecastController.js"></script>
+    <script src="Scripts\Controllers\forecastController.js"></script>
     <!--Directives-->
+    <script src="Scripts\Directives\forecastControls.js"></script>
     <script src="Scripts\Directives\StackedBar.js"></script>
     <script src="Scripts\Directives\transactionValueEditor.js"></script>
     <script src="Scripts\Directives\transactionEditor.js"></script>
@@ -50,60 +51,13 @@
           <a href="" ng-if="authCtrl.loggedIn()" ng-click="authCtrl.logOut()">Sign Out</a>
       </div>
     </header>
-    <div notifications-bar class="notifications"></div notifications-bar>
+    
+    <div notifications-bar class="notifications"></div>
+    
     <main>
         <!--FORECAST-->
-      <section class="forecast col-lg-8" ng-controller="ForecastController as fCtrl">
-          <div class="forecastheader">
-              <div class="forecastTitle boxtitle">
-                  <span>Forecast for {{fCtrl.forecastParams.startdate | date:"longDate":"UTC"}} - {{fCtrl.forecastParams.enddate | date:"longDate" : "UTC" }} (starting balance: ${{fCtrl.forecastParams.startbal}}) </span>
-                  <i ng-click="fCtrl.showParameters()" class="glyphicon glyphicon-pencil"></i>
-              </div>
-              <form class="form-inline forecastparameters" ng-if="fCtrl.parametersOn">
-                  <div class="form-group form-inline">
-                      <input type="date" class="input-xs-flat" ng-model="fCtrl.forecastParams.startdate" min-date="minDate" ng-required="true" />
-                      <input type="date" class="input-xs-flat" ng-model="fCtrl.forecastParams.enddate" min-date="minDate" ng-required="true" />
-                      <input type="number" class="input-xs-flat" ng-model="fCtrl.forecastParams.startbal" step="100" id="startbal" placeholder="Enter your current balance">
-                      <button type="button" class="btn btn-primary btn-xs" ng-click="fCtrl.refresh()"><i class="glyphicon glyphicon-refresh"></i></button>
-                      <label for="graphview">Graph View</label>
-                      <input id="graphview" type="radio" name="content" ng-model="fCtrl.forecastview" value="graph">
-                      <label for="tableview">Table View</label>
-                      <input id="tableview" type="radio" name="content" ng-model="fCtrl.forecastview" value="table">  
-                  </div>
-              </form>
-          </div>
-          <!--GRAPH-->
-          <div ng-if="fCtrl.forecastview=='graph'">
-            <!--<div class="graphloading spinner" ng-if="!graphCtrl.data">
-              <div class="cube1"></div>
-              <div class="cube2"></div>
-            </div>-->
-            <div class="forecastdatabound">
-              <stacked-bar class="graphcontainer clearfix"></stacked-bar>
-              <!--HEADLINES-->
-              <div class="headlines row">
-                  <div class="headline savings">
-                      <small>SAVINGS</small>
-                      <h2>${{headlines.savings}}</h2>
-                  </div>
-                  <div class="headline balance">
-                      <small>BALANCE</small>
-                      <h2>${{headlines.balance}}</h2>
-                  </div>
-                  <div class="headline spending">
-                      <small>OUTGOING</small>
-                      <h2>${{headlines.outgoing}}</h2>
-                  </div>
-                  <div class="headline income">
-                      <small>INCOMING</small>
-                      <h2>${{headlines.income}}</h2>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div ng-if="fCtrl.forecastview == 'table'">
-            <div grid-by-month class="gridByMonth"></div>
-          </div>
+      <section class="forecast col-lg-8">
+          <div forecast-controls></div>
       </section>
 
       <!-- Transactions table -->
@@ -111,7 +65,6 @@
           <ul class="list-group transactionlist">
               <li class="list-group-item transactionstitle clearfix">
                   <h5>Recurring transactions</h5>
-                  <p> {{Message}} </p>
                   <!--ADD button-->
                   <div class="button-round hvr-pop" ng-show="!addMode && !transactionhasfocus" ng-click="expandAddTransaction()"><i>+</i></div>
                   <!-- NEW TRANSACTION FORM-->

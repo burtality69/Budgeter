@@ -4,7 +4,8 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
     restrict: 'EA',
     bindToController: true,
     controllerAs: 'gridCtrl',
-    
+    require: '^forecastControls',
+    scope: {},
     controller: function($scope) {
 
       var gridCtrl = this;
@@ -28,7 +29,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
             
       scope.$watch(function(){return scope.gridCtrl.budgetdata;},
         function(newVal,oldVal) {
-          if (newVal !== oldVal) {
+          if (newVal !== oldVal && newVal.length > 0) {
                var descriptions = [];
                var columns = [];
 

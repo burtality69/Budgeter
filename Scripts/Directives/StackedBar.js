@@ -3,7 +3,9 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
     return {
         restrict: 'EA',
         bindToController: true,
+        require: '^forecastControls',
         controllerAs: 'graphCtrl',
+        scope: {},
         controller: function ($scope) {
         
             var graphCtrl = this;
@@ -34,16 +36,17 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
                 });
         };
                 
-        $scope.$on('redrawChart',graphCtrl.refresh());
         
     },
 
     link: function(scope, elem, attrs) {
         
+        scope.$on('redrawChart',scope.graphCtrl.refresh());
+        
         scope.$watch(function(){return scope.graphCtrl.data;},
         function(newVal,oldVal) { 
         //Margins, width, height
-        if (newVal !== oldVal) {
+        if (newVal !== oldVal && newVal.length > 0) {
             var margin = { top: 20, right: 20, bottom: 30, left: 50 },
                 width = 800 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
@@ -195,9 +198,9 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
                     .style("text-anchor", "end")
                     .text(function (d) { return d; });
                 
-                scope.data = [];   
+                scope.graphCtrl.data = [];   
             }
-            });
+            },true);
         }   
     };
 };
