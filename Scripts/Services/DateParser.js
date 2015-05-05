@@ -1,4 +1,4 @@
-Budgeter.service('DateParser',[function() {
+budgeterServices.service('dateParser',['$q',function() {
 
   return {
     getUTCDate: function(indate) {
@@ -11,5 +11,5 @@ Budgeter.service('DateParser',[function() {
       //return new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate()));
     }
 
-  }
+  };
 }]);

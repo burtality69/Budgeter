@@ -1,4 +1,4 @@
-﻿var clsTransaction = function (clsTransactionValue) {
+﻿budgeterModels.factory('clsTransaction',['clsTransactionValue',function (clsTransactionValue) {
 
     /*** Constructor, with class name*/
     function clsTransaction(ID, Name, TransactionValues, TypeDescription,TypeID, UserID ) {
@@ -31,6 +31,5 @@
 
     /*** Return the constructor function*/
     return clsTransaction;
-};
+}]);
 
-clsTransaction.$inject = ['clsTransactionValue'];

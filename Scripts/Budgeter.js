@@ -1,26 +1,22 @@
-var Budgeter = angular.module('Budgeter', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngAnimate','ngNotificationsBar']);
-Budgeter.factory('ForecastMgr', ForecastMgr);
-Budgeter.factory('AuthFactory', AuthFactory);
-Budgeter.factory('clsTransaction', clsTransaction);
-Budgeter.factory('clsTransactionValue',clsTransactionValue);
-Budgeter.factory('TransactionMgr',TransactionMgr);
-Budgeter.factory('TransactionValueMgr',TransactionValueMgr);
-Budgeter.factory('BudgetMgr', BudgetMgr);
-Budgeter.factory('clsBudgetModel',clsBudgetModel);
-Budgeter.factory('TransListdropdowns', TransListdropdowns);
-Budgeter.controller('AuthController', AuthController);
-Budgeter.controller('TransactionListController', TransactionListController);
+/// <reference path="../typings/angularjs/angular.d.ts"/>
+var Budgeter = angular.module('Budgeter', 
+['ngRoute', 
+'ngCookies', 
+'ui.bootstrap', 
+'ngAnimate',
+'ngNotificationsBar',
+'budgeterControllers',
+'budgeterDirectives',
+'budgeterServices',
+'budgeterFactories',
+'budgeterModels'
+]);
 
-Budgeter.directive('forecastControls',forecastControls);
-Budgeter.directive('stackedBar', stackedBar);
-Budgeter.directive('gridByMonth', gridByMonth);
-Budgeter.directive('transactionValue', transactionValue);
-Budgeter.directive('transactionValueEditor', transactionValueEditor);
-Budgeter.directive('transactionEditor', transactionEditor);
-Budgeter.directive('transaction',transaction);
-
-Budgeter.service('forecastParams',forecastParams);
-Budgeter.service('SessionService', SessionService);
+var budgeterServices = angular.module('budgeterServices', []);
+var budgeterControllers = angular.module('budgeterControllers', []);
+var budgeterDirectives = angular.module('budgeterDirectives', []);
+var budgeterFactories = angular.module('budgeterFactories', []);
+var budgeterModels = angular.module('budgeterModels', []);
 
 var ConfigFunction = function($routeProvider,$locationProvider,notificationsConfigProvider) {
 

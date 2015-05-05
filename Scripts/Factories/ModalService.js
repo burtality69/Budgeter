@@ -1,4 +1,4 @@
-﻿var ModalService = 
+﻿budgeterFactories.factory('modalService',['$document','$compile','$controller','$http','$rootScope','$q','$templateCache', 
    function($document, $compile, $controller, $http, $rootScope, $q, $templateCache) {
 
        //  Get the body of the document, we'll add the modal to this.
@@ -146,6 +146,4 @@
        }
 
        return new ModalService();
-   };
-
-ModalService.$inject = ['$document', '$compile', '$controller', '$http', '$rootScope', '$q', '$templateCache'];
+   }]);

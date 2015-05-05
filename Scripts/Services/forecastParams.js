@@ -1,4 +1,4 @@
-var forecastParams = function () {
+budgeterServices.service('forecastParams',['$q',function () {
 	
 	var s = new Date();
     var e = new Date();
@@ -22,4 +22,4 @@ var forecastParams = function () {
 		}
 	};
 	
-};
+}]);

@@ -1,8 +1,9 @@
-var BudgetMgr = function($http, $q, SessionService) {
+budgeterFactories.factory('budgetMgr',['$http','$q','sessionService',
+function($http, $q, sessionService) {
 
-  var token = SessionService.getToken();
+  var token = sessionService.getToken();
   var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
-  var apiroot = SessionService.apiUrl;
+  var apiroot = sessionService.apiUrl;
 
   return {
 
@@ -11,7 +12,7 @@ var BudgetMgr = function($http, $q, SessionService) {
         var result = $q.defer();
         var querystring = '?startdate=' + params.startdate.toLocaleDateString('en-US') + '&enddate=' + params.enddate.toLocaleDateString('en-US');
 
-        $http({method: 'GET',url: SessionService.apiUrl + '/api/forecast/getbudget' + querystring , headers: headers})
+        $http({method: 'GET',url: apiroot + '/api/forecast/getbudget' + querystring , headers: headers})
             .success(function (response) {
                 result.resolve(response);
             })
@@ -22,7 +23,6 @@ var BudgetMgr = function($http, $q, SessionService) {
 
         return result.promise;
       }
-    }
-};
+    };
+}]);
 
-BudgetMgr.$inject =['$http','$q','SessionService'];

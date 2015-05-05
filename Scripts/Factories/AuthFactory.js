@@ -1,4 +1,4 @@
-var AuthFactory = function($http,$q,SessionService){
+budgeterFactories.factory('authFactory',['$http','$q','sessionService',function($http,$q,sessionService){
   return {
 
     login: function(username,password){
@@ -9,7 +9,7 @@ var AuthFactory = function($http,$q,SessionService){
 
       $http({
         method: 'POST',
-        url: SessionService.apiUrl + '/token',
+        url: sessionService.apiUrl + '/token',
         transformRequest: function(obj) {
           var str = [];
           for(var p in obj)
@@ -35,7 +35,7 @@ var AuthFactory = function($http,$q,SessionService){
       var params = registerForm;
       var headers = {'Content-Type': 'application/json'};
 
-      $http({method: 'POST',url: SessionService.apiUrl + '/api/Account/register',data: params,headers: headers})
+      $http({method: 'POST',url: sessionService.apiUrl + '/api/Account/register',data: params,headers: headers})
           .success(function(response){
             result.resolve(response);
         })
@@ -51,8 +51,8 @@ var AuthFactory = function($http,$q,SessionService){
 
       $http({
         method: 'GET',
-        url: SessionService.apiUrl + '/api/Account/UserInfo',
-        headers: {'Content-Type': 'application/json','Authorization': 'Bearer ' + SessionService.getToken()}
+        url: sessionService.apiUrl + '/api/Account/UserInfo',
+        headers: {'Content-Type': 'application/json','Authorization': 'Bearer ' + sessionService.getToken()}
       })
       .success(function(response){
         result.resolve(response);
@@ -65,6 +65,4 @@ var AuthFactory = function($http,$q,SessionService){
     }
 
   };
-};
-
-AuthFactory.$inject = ['$http','$q','SessionService'];
+}]);

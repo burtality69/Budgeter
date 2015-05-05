@@ -1,10 +1,11 @@
-var TransListdropdowns = function(SessionService,$http,$q) {
+budgeterServices.service('translistDropdowns',['sessionService','$http','$q',
+function(sessionService,$http,$q) {
   
   var ctrl = this;
   
-  ctrl.token = SessionService.getToken();
+  ctrl.token = sessionService.getToken();
   ctrl.headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ctrl.token };
-  ctrl.apiroot = SessionService.apiUrl;
+  ctrl.apiroot = sessionService.apiUrl;
   ctrl.Transactionfrequencies = undefined;
   ctrl.TransactionTypes = undefined;
 
@@ -30,7 +31,7 @@ var TransListdropdowns = function(SessionService,$http,$q) {
       var result = $q.defer();
       
       if(!ctrl.TransactionTypes) {
-      $http({method: 'GET',url: SessionService.apiUrl + '/api/admin/transactiontypes',headers: ctrl.headers})
+      $http({method: 'GET',url: sessionService.apiUrl + '/api/admin/transactiontypes',headers: ctrl.headers})
         .success(function (response) {
             ctrl.TransactionTypes = response;
             result.resolve(response);
@@ -46,6 +47,4 @@ var TransListdropdowns = function(SessionService,$http,$q) {
         getTransactionFrequencies: ctrl.getTransactionFrequencies,
         getTransactionTypes: ctrl.getTransactionTypes
       };
-};
-
-TransListdropdowns.$inject = ['SessionService','$http','$q'];
+}]);

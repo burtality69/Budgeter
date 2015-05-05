@@ -1,4 +1,5 @@
-var forecastControls = function(forecastParams) {
+budgeterDirectives.directive('forecastControls',['forecastParams',
+function(forecastParams) {
 	
 	return {
 		restrict: 'EA',
@@ -40,6 +41,4 @@ var forecastControls = function(forecastParams) {
 		
 	};
 	
-};
-
-forecastControls.$inject = ['forecastParams'];
+}]);

@@ -1,4 +1,6 @@
-﻿var transactionEditor = function (clsTransaction, TransactionMgr,TransListdropdowns,notifications,$rootscope) {
+﻿budgeterDirectives.directive('transactionEditor',
+['clsTransaction','transactionMgr','translistDropdowns','notifications','$rootScope','transactionValueMgr',
+function (clsTransaction, transactionMgr,transListdropdowns,notifications,$rootScope,transactionValueMgr) {
   //This has a dependency on transactionmanager which interfaces with the API
 
     return {
@@ -16,12 +18,12 @@
           var transEdit = this;
           var newrecord = false;
           
-          TransListdropdowns.getTransactionTypes().then(
+          transListdropdowns.getTransactionTypes().then(
               function(response) {
                 transEdit.types = response;
               });
           
-          TransListdropdowns.getTransactionFrequencies().then(
+          transListdropdowns.getTransactionFrequencies().then(
             function(response) {
               transEdit.freqs = response;
             });
@@ -39,14 +41,14 @@
           transEdit.submit = function () {
 
             if (newrecord) {
-              TransactionMgr.post(transEdit.Trans).then(
+              transactionMgr.post(transEdit.Trans).then(
                 function (response) {
                   console.log(response);
                   $rootScope.$broadcast('redrawChart');
                   notifications.showSuccess({message: 'Task Updated'});
                 });
             } else {
-              TransactionMgr.put(transEdit.Trans).then(
+              transactionMgr.put(transEdit.Trans).then(
                 function (response) {
                   transEdit.Trans.message = response;
                 });
@@ -58,7 +60,7 @@
           }
 
           transEdit.delete = function () {
-            TransactionValueMgr.delete(transEdit.Trans.ID).then(
+            transactionValueMgr.delete(transEdit.Trans.ID).then(
               function (response) {
                 transEdit.Trans.message = response;
               });
@@ -72,6 +74,5 @@
         templateUrl: "/Views/Templates/transactionEditor.html"
 
     };
-};
+}]);
 
-transactionEditor.$inject = ['clsTransaction', 'TransactionMgr','TransListdropdowns','notifications'];

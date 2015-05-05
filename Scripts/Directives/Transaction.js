@@ -1,4 +1,5 @@
-var transaction = function(clsTransaction,clsTransactionValue) {
+budgeterDirectives.directive('transaction',['clsTransaction','clsTransactionValue',
+function(clsTransaction,clsTransactionValue) {
 
   return {
     restrict: 'EA',
@@ -47,9 +48,7 @@ var transaction = function(clsTransaction,clsTransactionValue) {
 
     templateUrl: '/Views/Templates/Transaction.html'
 
-  }
+  };
 
+}]);
 
-};
-
-transaction.$inject = ['clsTransaction','clsTransactionValue']

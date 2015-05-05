@@ -1,4 +1,5 @@
-﻿var TransactionListController = function ($rootScope, $scope, clsTransaction, TransactionMgr) {
+﻿budgeterControllers.controller('transactionListController',['$rootScope','$scope','clsTransaction','transactionMgr',
+function ($rootScope, $scope, clsTransaction, transactionMgr) {
 
 
     $scope.listmgr = {
@@ -22,7 +23,7 @@
 
     //GET
     var refreshTransactions = function () {
-        TransactionMgr.get().then(
+        transactionMgr.get().then(
         function (response) {
             $scope.transactions = response.map(clsTransaction.build);
         });
@@ -33,5 +34,4 @@
     
     $scope.$on('refreshTList',refreshTransactions());
 
-};
-TransactionListController.$inject = ['$rootScope','$scope','clsTransaction','TransactionMgr'];
+}]);

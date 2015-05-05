@@ -1,4 +1,5 @@
-var SessionService = function($cookies){
+budgeterServices.service('sessionService',['$cookies',
+function($cookies){
 
 //This service manipulates an authorisation cookie for session
     
@@ -37,6 +38,4 @@ var SessionService = function($cookies){
     $cookies.remove('userName');
   };
 
-};
-
-SessionService.$inject = ['$cookies'];
+}]);

@@ -1,4 +1,5 @@
-var AuthController = function($scope,AuthFactory,SessionService,$modal) {
+budgeterControllers.controller('authController',['$scope','authFactory','sessionService','$modal',
+function($scope,authFactory,sessionService,$modal) {
   
   var authCtrl = this; 
   
@@ -7,7 +8,7 @@ var AuthController = function($scope,AuthFactory,SessionService,$modal) {
   authCtrl.registerForm = { Email: undefined, password: undefined, confirmPassword: undefined, errorMessage: undefined };
   
   authCtrl.loggedIn = function () {
-        return SessionService.getToken() !== undefined;
+        return sessionService.getToken() !== undefined;
   };
     
   authCtrl.openModal = function () {
@@ -20,9 +21,9 @@ var AuthController = function($scope,AuthFactory,SessionService,$modal) {
       
       loginModalCtrl.login = function() {
 
-        AuthFactory.login(loginModalCtrl.loginForm.username,loginModalCtrl.loginForm.password)
+        authFactory.login(loginModalCtrl.loginForm.username,loginModalCtrl.loginForm.password)
           .then(function(response){
-            SessionService.setSession(response);
+            sessionService.setSession(response);
             $modalInstance.close()
             $rootScope.$broadcast('redrawChart');
           }, function(response){
@@ -32,7 +33,7 @@ var AuthController = function($scope,AuthFactory,SessionService,$modal) {
 
       loginModalCtrl.register = function (registerForm) {
     
-        AuthFactory.register(registerForm)
+        authFactory.register(registerForm)
           .then(function (response) {
               console.log(response);
           });
@@ -56,6 +57,4 @@ var AuthController = function($scope,AuthFactory,SessionService,$modal) {
     size: 'sm'
     });
   };
-};
-
-AuthController.$inject = ['$scope','AuthFactory','SessionService','$modal'];
+}]);

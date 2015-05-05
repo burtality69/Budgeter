@@ -1,8 +1,9 @@
-var TransactionValueMgr = function ($http, $q, SessionService, clsTransactionValue) {
+budgeterFactories.factory('transactionValueMgr',['$http','$q','sessionService','clsTransaction',
+function ($http, $q, sessionService, clsTransactionValue) {
 
-    var token = SessionService.getToken();
+    var token = sessionService.getToken();
     var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
-    var apiroot = SessionService.apiUrl + '/api/transactionValues';
+    var apiroot = sessionService.apiUrl + '/api/transactionValues';
 
     return {
 
@@ -70,6 +71,4 @@ var TransactionValueMgr = function ($http, $q, SessionService, clsTransactionVal
         return result.promise;
     }
   }
-};
-
-TransactionValueMgr.$inject = ['$http','$q','SessionService','clsTransactionValue'];
+}]);

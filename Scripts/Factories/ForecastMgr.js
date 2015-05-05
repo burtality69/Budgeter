@@ -1,8 +1,8 @@
-var ForecastMgr = function ($http, $q, SessionService) {
+budgeterFactories.factory('forecastMgr',['$http','$q','sessionService',function ($http, $q, sessionService) {
 
-    var token = SessionService.getToken();
-    var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
-    var apiroot = SessionService.apiUrl;
+    var token = sessionService.getToken();
+    var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+    var apiroot = sessionService.apiUrl;
 
     return {
 
@@ -13,7 +13,7 @@ var ForecastMgr = function ($http, $q, SessionService) {
 
       $http({
          method: 'GET',
-         url: SessionService.apiUrl + '/api/Forecast?' + querystring,
+         url: apiroot + '/api/Forecast?' + querystring,
          headers: headers
       })
       .success(function(response){
@@ -25,7 +25,5 @@ var ForecastMgr = function ($http, $q, SessionService) {
 
       return result.promise;
     }
-  }
-};
-
-ForecastMgr.$inject = ['$http','$q','SessionService'];
+  };
+}]);

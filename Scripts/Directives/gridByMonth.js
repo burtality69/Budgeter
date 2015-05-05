@@ -1,4 +1,5 @@
-var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
+budgeterDirectives.directive('gridByMonth',['budgetMgr','clsBudgetModel','$filter','forecastParams',
+function(budgetMgr,clsBudgetModel,$filter,forecastParams) {
 
   return {
     restrict: 'EA',
@@ -15,7 +16,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
       gridCtrl.budgetdata = [];
       
       gridCtrl.redrawGrid = function() {
-          BudgetMgr.getBudget(gridCtrl.forecastParams).then(
+          budgetMgr.getBudget(gridCtrl.forecastParams).then(
             function(response){
               gridCtrl.budgetdata = response.map(clsBudgetModel.build);
             });
@@ -97,6 +98,4 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
       },true);
     }  
   };
-};
-
-gridByMonth.$inject = ['BudgetMgr','clsBudgetModel','$filter','forecastParams'];
+}]);

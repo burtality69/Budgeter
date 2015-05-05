@@ -1,4 +1,5 @@
-var transactionValue = function (clsTransactionValue,TransactionValueMgr,notifications) {
+budgeterDirectives.directive('transactionValue',['clsTransactionValue','transactionValueMgr','notifications', 
+function (clsTransactionValue,transactionValueMgr,notifications) {
 // This is a
 
     return {
@@ -19,7 +20,7 @@ var transactionValue = function (clsTransactionValue,TransactionValueMgr,notific
 
             tvCtrl.delete = function () {
 
-              TransactionValueMgr.delete(tvCtrl.tv.ID).then(
+              transactionValueMgr.delete(tvCtrl.tv.ID).then(
                 function (response) {
                   notifications.showSuccess({message: 'Task Deleted'});
                 });
@@ -34,4 +35,4 @@ var transactionValue = function (clsTransactionValue,TransactionValueMgr,notific
 
         }
     };
-};
+}]);

@@ -1,4 +1,6 @@
-﻿var transactionValueEditor = function (clsTransactionValue,TransactionValueMgr,TransListdropdowns,notifications) {
+﻿budgeterDirectives.directive('transactionValueEditor',
+['clsTransactionValue','transactionValueMgr','translistDropdowns','notifications',
+function (clsTransactionValue,transactionValueMgr,translistDropdowns,notifications) {
 // This motherfucker has it's own scope for modifying or inserting TransactionValues
 // It uses an instance of the TransactionValueMgr which interacts with the API
 // If it's called in a create context, it creates a new model, otherwise it copies an existing for edit
@@ -12,7 +14,7 @@
         
         controllerAs: 'tvEditCtrl',
 
-        controller: function (TransListdropdowns,notifications) {
+        controller: function (translistDropdowns,notifications) {
             
             var tvEditCtrl = this;
             
@@ -21,9 +23,9 @@
 
             tvEditCtrl.collapse = function() {
               tvEditCtrl.tv.editable = false;
-            }
+            };
 
-            TransListdropdowns.getTransactionFrequencies().then(
+            translistDropdowns.getTransactionFrequencies().then(
               function(response) {
                 tvEditCtrl.frequencies = response;
               });
@@ -42,13 +44,13 @@
             tvEditCtrl.submit = function () {
 
               if (newrecord) {
-                TransactionValueMgr.post(tvEditCtrl.tv).then(
+                transactionValueMgr.post(tvEditCtrl.tv).then(
                   function (response) {
                     notifications.showSuccess({message: 'Task Updated'});
                     tvEditCtrl.collapse();
                   });
               } else {
-                TransactionValueMgr.put(tvEditCtrl.tv).then(
+                transactionValueMgr.put(tvEditCtrl.tv).then(
                   function (response) {
                     notifications.showSuccess({message: 'Your task posted successfully'});
                     tvEditCtrl.collapse();
@@ -68,7 +70,7 @@
 
             tvEditCtrl.delete = function () {
 
-              TransactionValueMgr.delete(tvEditCtrl.tv.ID).then(
+              transactionValueMgr.delete(tvEditCtrl.tv.ID).then(
                 function (response) {
                   notifications.showSuccess({message: 'Task deleted'});
                 });
@@ -81,4 +83,4 @@
 
         }
     };
-};
+}]);

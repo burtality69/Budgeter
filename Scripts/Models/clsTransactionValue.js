@@ -1,8 +1,8 @@
-var clsTransactionValue = function (DateParser) {
+budgeterModels.factory('clsTransactionValue',['dateParser',function (dateParser) {
 
   function clsTransactionValue(ID, TransactionID, Value, FrequencyID, FrequencyDescription, Day, Start_date, End_date) {
       // Public properties, assigned to the instance ('this')
-      this.ID = ID
+      this.ID = ID,
       this.TransactionID = TransactionID,
       this.Value = Value,
       this.FrequencyID = FrequencyID,
@@ -23,12 +23,12 @@ var clsTransactionValue = function (DateParser) {
           FrequencyID = data.FrequencyID,
           FrequencyDescription = data.FrequencyDescription,
           Day = data.Day,
-          Start_date = DateParser.getUTCDate(data.Start_date),
-          End_date = DateParser.getUTCDate(data.End_date),
+          Start_date = dateParser.getUTCDate(data.Start_date),
+          End_date = dateParser.getUTCDate(data.End_date),
           editable = false,
           expanded = false
-    )
-  }
+    );
+  };
 
   clsTransactionValue.prototype.formatforApi = function () {
     return {
@@ -39,10 +39,9 @@ var clsTransactionValue = function (DateParser) {
       Day: this.Day,
       Start_date: this.Start_date.toLocaleDateString('en-US'),
       End_date: this.End_date.toLocaleDateString('en-US')
-    }
-  }
+    };
+  };
 
     return clsTransactionValue;
-};
-
-clsTransactionValue.$inject = ['DateParser'];
+    
+}]);

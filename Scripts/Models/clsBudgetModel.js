@@ -1,4 +1,4 @@
-var clsBudgetModel = function (DateParser) {
+budgeterFactories.factory('clsBudgetModel',['dateParser',function (dateParser) {
 
   function clsBudgetModel(Month, Description, Amount) {
     this.Month = Month || undefined,
@@ -9,13 +9,12 @@ var clsBudgetModel = function (DateParser) {
   clsBudgetModel.build = function(data) {
  
     return new clsBudgetModel (
-      Month = DateParser.getUTCDate(data.Month).toLocaleDateString('en-US'),
+      Month = dateParser.getUTCDate(data.Month).toLocaleDateString('en-US'),
       Description = data.Description,
       Amount = data.Amount
-    )}
+      );
+    };
 
     return clsBudgetModel;
 
-};
-
-clsBudgetModel.$inject =['DateParser'];
+}]);

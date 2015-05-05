@@ -1,4 +1,5 @@
-var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
+budgeterDirectives.directive('stackedBar',['forecastMgr','$timeout','forecastParams',
+function (forecastMgr,$timeout,forecastParams) {
     
     return {
         restrict: 'EA',
@@ -18,7 +19,7 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
             graphCtrl.params = forecastParams.getparams();
             
             graphCtrl.refresh = function () {
-                ForecastMgr.getForecast(graphCtrl.params).then(
+                forecastMgr.getForecast(graphCtrl.params).then(
                 function (response) {
         
                     graphCtrl.data = response;
@@ -56,7 +57,7 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
             var parseDate = function (date) {
                 return new Date(date);
             };
-    
+            
             //X scale
             var x = d3.time.scale()
                 .range([0, width]);
@@ -206,6 +207,4 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
             },true);
         }   
     };
-};
-
-stackedBar.$inject = ['ForecastMgr','$timeout','forecastParams'];
+}]);
