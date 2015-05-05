@@ -134,6 +134,10 @@ input:focus {
     display: inline;
 }
 
+.forecastparameters {
+  padding-bottom: 30px;
+}
+
 .forecastparameters.form-group {
     padding: 2px;
 }

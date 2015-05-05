@@ -16,15 +16,9 @@
 </div>
 
 <div ng-show="fCtrl.forecastview=='graph'">
-    <!--<div class="graphloading spinner" ng-if="!graphCtrl.data">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>-->
-    <div class="forecastdatabound">
-      <div stacked-bar class="graphcontainer clearfix"></div>
-    </div>
+    <stacked-bar class="graphcontainer clearfix"></stacked-bar>
 </div>
   <!--TABLE-->
 <div ng-show="fCtrl.forecastview == 'table'">
-  <div grid-by-month class="gridByMonth"></div>
+  <grid-by-month class="gridByMonth"></grid-by-month>
 </div>

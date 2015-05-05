@@ -5,12 +5,15 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
         bindToController: true,
         require: '^forecastControls',
         controllerAs: 'graphCtrl',
-        scope: {},
+        templateUrl: '/Views/Templates/stackedBar.html',
+        scope: true,
         controller: function ($scope) {
         
             var graphCtrl = this;
             
             graphCtrl.data = undefined;
+            
+            graphCtrl.spin = true;
             
             graphCtrl.params = forecastParams.getparams();
             
@@ -35,13 +38,12 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
                     //graphCtrl.headlines.outgoing = outgoing;
                 });
         };
-                
+        
+        $scope.$on('redrawChart',graphCtrl.refresh());    
         
     },
 
     link: function(scope, elem, attrs) {
-        
-        scope.$on('redrawChart',scope.graphCtrl.refresh());
         
         scope.$watch(function(){return scope.graphCtrl.data;},
         function(newVal,oldVal) { 
@@ -79,7 +81,7 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
                 .tickFormat(d3.format(".2s"));
     
             //Create a SVG and add a 'g' (generic svg element)
-            var svg = d3.select(elem[0]).append("svg")
+            var svg = d3.select(elem.children()[1]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("class","graphcanvas")
                 .attr("height", height + margin.top + margin.bottom)
@@ -198,6 +200,7 @@ var stackedBar = function (ForecastMgr,$timeout,forecastParams) {
                     .style("text-anchor", "end")
                     .text(function (d) { return d; });
                 
+                scope.graphCtrl.spin = false;
                 scope.graphCtrl.data = [];   
             }
             },true);

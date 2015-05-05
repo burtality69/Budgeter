@@ -8,7 +8,7 @@ var forecastControls = function(forecastParams) {
 		controller: function($scope) {
 			
 			var fCtrl = this; 
-		
+					
 			fCtrl.forecastview = 'graph';
 
   			fCtrl.forecastParams = forecastParams.getparams();
@@ -23,11 +23,7 @@ var forecastControls = function(forecastParams) {
   			fCtrl.showParameters = function () {
       			fCtrl.parametersOn = !fCtrl.parametersOn;
   			};
-			
-			fCtrl.addChild = function(child) {
-				fCtrl.children.push(child);	
-			};
-			
+						
   			fCtrl.refresh = function() {
       
 		      forecastParams.setparams(fCtrl.forecastParams);

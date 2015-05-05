@@ -5,7 +5,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
     bindToController: true,
     controllerAs: 'gridCtrl',
     require: '^forecastControls',
-    scope: {},
+    scope: true,
     controller: function($scope) {
 
       var gridCtrl = this;
@@ -25,7 +25,7 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
     },
     
 
-    link: function(scope,elem,attrs) {
+    link: function(scope,elem,attrs,fCtrl) {
             
       scope.$watch(function(){return scope.gridCtrl.budgetdata;},
         function(newVal,oldVal) {
