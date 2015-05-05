@@ -1,4 +1,4 @@
-var DateParser = function() {
+Budgeter.service('DateParser',[function() {
 
   return {
     getUTCDate: function(indate) {
@@ -12,4 +12,4 @@ var DateParser = function() {
     }
 
   }
-}
+}]);

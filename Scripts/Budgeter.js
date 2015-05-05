@@ -9,7 +9,6 @@ Budgeter.factory('BudgetMgr', BudgetMgr);
 Budgeter.factory('clsBudgetModel',clsBudgetModel);
 Budgeter.factory('TransListdropdowns', TransListdropdowns);
 Budgeter.controller('AuthController', AuthController);
-Budgeter.controller('forecastController', forecastController);
 Budgeter.controller('TransactionListController', TransactionListController);
 
 Budgeter.directive('forecastControls',forecastControls);
@@ -22,7 +21,6 @@ Budgeter.directive('transaction',transaction);
 
 Budgeter.service('forecastParams',forecastParams);
 Budgeter.service('SessionService', SessionService);
-Budgeter.service('DateParser',DateParser);
 
 var ConfigFunction = function($routeProvider,$locationProvider,notificationsConfigProvider) {
 

@@ -21,11 +21,12 @@ var gridByMonth = function(BudgetMgr,clsBudgetModel,$filter,forecastParams) {
             });
       }
 
-        $scope.$on('redrawGrid',gridCtrl.redrawGrid());
     },
     
 
     link: function(scope,elem,attrs,fCtrl) {
+      
+      scope.$on('redrawGrid',scope.gridCtrl.redrawGrid());
             
       scope.$watch(function(){return scope.gridCtrl.budgetdata;},
         function(newVal,oldVal) {
