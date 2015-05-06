@@ -8,7 +8,10 @@ function(forecastParams) {
 		scope: {},
 		controller: function($scope) {
 			
-			var fCtrl = this; 
+			var fCtrl = this;
+			
+			fCtrl.gEx = false;
+			fCtrl.tEx = false; 
 					
 			fCtrl.forecastview = 'graph';
 
@@ -22,18 +25,18 @@ function(forecastParams) {
 		  	};
   
   			fCtrl.showParameters = function () {
-      			fCtrl.parametersOn = !fCtrl.parametersOn;
+  				fCtrl.parametersOn = !fCtrl.parametersOn;
   			};
-						
+			
   			fCtrl.refresh = function() {
-      
-		      forecastParams.setparams(fCtrl.forecastParams);
-      
-		      if(fCtrl.forecastview == 'graph') {
-		          $scope.$broadcast('redrawChart');
-		      } else {
-		          $scope.$broadcast('redrawGrid');
-		      }
+  			
+			      forecastParams.setparams(fCtrl.forecastParams);
+	      
+			      if(fCtrl.forecastview == 'graph') {
+		          	fCtrl.gEx = true;
+			      } else {
+		          	fCtrl.tEx = true;
+			      }
   			};
 		},
 		
