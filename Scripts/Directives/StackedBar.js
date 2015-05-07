@@ -6,9 +6,18 @@ function (forecastMgr,$timeout,forecastParams) {
         bindToController: true,
         require: '^forecastControls',
         controllerAs: 'graphCtrl',
-        templateUrl: '/Views/Templates/stackedBar.html',
-        controller: function ($scope) {
-        
+        scope: true,
+        transclude: true,
+        template: '<div class="graphloading spinner" ng-show="graphCtrl.spin">' +
+                    '<div class="cube1"></div>' +
+                    '<div class="cube2"></div>' +
+                  '</div>' +
+                  '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>',
+        controller: ['$scope',function ($scope) {
+            
+            console.log('hit the graphCtrl controller');
+            console.log($scope);
+            
             var graphCtrl = this;
             
             graphCtrl.data = undefined;
@@ -38,10 +47,20 @@ function (forecastMgr,$timeout,forecastParams) {
                         //graphCtrl.headlines.outgoing = outgoing;
                 });
             };
+            
+            //graphCtrl.refresh();
+            
+            $scope.$on('renderChart',graphCtrl.refresh());
         
-        },
+        }],
 
         link: function(scope, elem, attrs) {
+            
+            console.log('hit the link function of graphCtrl');
+            console.log(elem);
+            console.log(scope);
+            console.log(scope.$$listeners);
+			console.log(scope.$$listenerCount);
             
             scope.graphCtrl.render = function(data) {
             //Margins, width, height
@@ -207,7 +226,7 @@ function (forecastMgr,$timeout,forecastParams) {
                    scope.graphCtrl.render(newVal);
                    }
             },true);
-            
+           
         }   
     };
 }]);
