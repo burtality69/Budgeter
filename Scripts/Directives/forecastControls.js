@@ -6,41 +6,38 @@ function(forecastParams) {
 		bindToController: true,
 		controllerAs: 'fCtrl',
 		scope: {},
+      templateUrl: '/Views/templates/forecastControls.html',
 		controller: function($scope) {
 			
 			var fCtrl = this;
-			
-			fCtrl.gEx = false;
-			fCtrl.tEx = false; 
 					
-			fCtrl.forecastview = 'graph';
+			this.forecastview = 'graph';
 
-  			fCtrl.forecastParams = forecastParams.getparams();
+  			this.forecastParams = forecastParams.getparams();
 
-		  	fCtrl.headlines = {
+		  	this.headlines = {
 		      balance: 0,
 		      savings: 0,
 		      income: 0,
 		      outgoing: 0
 		  	};
   
-  			fCtrl.showParameters = function () {
+  			this.showParameters = function () {
   				fCtrl.parametersOn = !fCtrl.parametersOn;
   			};
 			
-  			fCtrl.refresh = function() {
+  			this.refresh = function() {
   			
 			      forecastParams.setparams(fCtrl.forecastParams);
 	      
 			      if(fCtrl.forecastview == 'graph') {
-		          	fCtrl.gEx = true;
+		          	$scope.$broadcast('renderChart');
 			      } else {
-		          	fCtrl.tEx = true;
+		          	$scope.$broadcast('renderGrid');
 			      }
   			};
-		},
-		
-		templateUrl: '/Views/Templates/forecastControls.html'
+			 
+		}
 		
 	};
 	

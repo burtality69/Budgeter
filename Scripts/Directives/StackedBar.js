@@ -7,18 +7,19 @@ function (forecastMgr,$timeout,forecastParams) {
         require: '^forecastControls',
         controllerAs: 'graphCtrl',
         templateUrl: '/Views/Templates/stackedBar.html',
+        scope: true,
         controller: function ($scope) {
         
             var graphCtrl = this;
             
-            graphCtrl.data = undefined;
+            this.data = undefined;
             
-            graphCtrl.spin = true;
+            this.spin = true;
             
-            graphCtrl.params = forecastParams.getparams();
+            this.params = forecastParams.getparams();
             
-            graphCtrl.refresh = function () {
-                forecastMgr.getForecast(graphCtrl.params).then(
+            this.refresh = function () {
+                forecastMgr.getForecast(forecastParams.getparams()).then(
                     function (response) {
                     
                         graphCtrl.data = response;
@@ -38,6 +39,13 @@ function (forecastMgr,$timeout,forecastParams) {
                         //graphCtrl.headlines.outgoing = outgoing;
                 });
             };
+            
+            this.refresh();
+            
+            $scope.$on('renderChart',function(){
+                forecastParams.setparams(graphCtrl.params);
+                graphCtrl.refresh();
+            });
         
         },
 
@@ -77,6 +85,8 @@ function (forecastMgr,$timeout,forecastParams) {
                     .tickFormat(d3.format(".2s"));
         
                 //Create a SVG and add a 'g' (generic svg element)
+                d3.select("svg").remove();
+                console.log('removed the svg');
                 var svg = d3.select(elem.children()[1]).append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("class","graphcanvas")
@@ -196,7 +206,6 @@ function (forecastMgr,$timeout,forecastParams) {
                         .style("text-anchor", "end")
                         .text(function (d) { return d; });
                     
-                    scope.graphCtrl.exec = false;
                     scope.graphCtrl.spin = false;
                     scope.graphCtrl.data = [];   
             };
@@ -204,6 +213,7 @@ function (forecastMgr,$timeout,forecastParams) {
             scope.$watch(function(){return scope.graphCtrl.data;},
                function(newVal,oldVal) { 
                  if (newVal !== oldVal && newVal.length > 0) {
+                   console.log('watch function hit');
                    scope.graphCtrl.render(newVal);
                    }
             },true);

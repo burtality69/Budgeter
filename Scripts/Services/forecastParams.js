@@ -4,22 +4,22 @@ budgeterServices.service('forecastParams',['$q',function () {
     var e = new Date();
     e.setDate(e.getDate() + 90);
 	
-	this.startdate = s;
-	this.enddate = e;
-	this.startbal = 0; 
+	var startdate = s;
+	var enddate = e;
+	var startbal = 0; 
 	
 	this.setparams = function(params) {
-		this.startdate = params.startdate;
-		this.enddate = params.enddate;
-		this.startbal = params.startbal; 	
+		startdate = params.startdate;
+		enddate = params.enddate;
+		startbal = params.startbal; 	
 	};
 	
 	this.getparams = function() {
 		return {
-			startdate: this.startdate,
-			enddate: this.enddate,
-			startbal: this.startbal
-		}
+			startdate: startdate,
+			enddate: enddate,
+			startbal: startbal
+		};
 	};
 	
 }]);
