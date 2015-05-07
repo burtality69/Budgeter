@@ -6,10 +6,25 @@ function (forecastMgr,$timeout,forecastParams) {
         bindToController: true,
         require: '^forecastControls',
         controllerAs: 'graphCtrl',
+<<<<<<< HEAD
         templateUrl: '/Views/Templates/stackedBar.html',
         scope: true,
         controller: function ($scope) {
         
+=======
+        scope: true,
+        transclude: true,
+        template: '<div class="graphloading spinner" ng-show="graphCtrl.spin">' +
+                    '<div class="cube1"></div>' +
+                    '<div class="cube2"></div>' +
+                  '</div>' +
+                  '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>',
+        controller: ['$scope',function ($scope) {
+            
+            console.log('hit the graphCtrl controller');
+            console.log($scope);
+            
+>>>>>>> origin/master
             var graphCtrl = this;
             
             this.data = undefined;
@@ -40,16 +55,28 @@ function (forecastMgr,$timeout,forecastParams) {
                 });
             };
             
+<<<<<<< HEAD
             this.refresh();
             
             $scope.$on('renderChart',function(){
                 forecastParams.setparams(graphCtrl.params);
                 graphCtrl.refresh();
             });
+=======
+            //graphCtrl.refresh();
+            
+            $scope.$on('renderChart',graphCtrl.refresh());
+>>>>>>> origin/master
         
-        },
+        }],
 
         link: function(scope, elem, attrs) {
+            
+            console.log('hit the link function of graphCtrl');
+            console.log(elem);
+            console.log(scope);
+            console.log(scope.$$listeners);
+			console.log(scope.$$listenerCount);
             
             scope.graphCtrl.render = function(data) {
             //Margins, width, height
@@ -217,7 +244,7 @@ function (forecastMgr,$timeout,forecastParams) {
                    scope.graphCtrl.render(newVal);
                    }
             },true);
-            
+           
         }   
     };
 }]);

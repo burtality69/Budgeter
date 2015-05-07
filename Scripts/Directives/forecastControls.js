@@ -3,11 +3,21 @@ function(forecastParams) {
 	
 	return {
 		restrict: 'EA',
+		templateUrl: '/Views/Templates/forecastControls.html',
 		bindToController: true,
 		controllerAs: 'fCtrl',
+		transclude: true,
 		scope: {},
+<<<<<<< HEAD
       templateUrl: '/Views/templates/forecastControls.html',
 		controller: function($scope) {
+=======
+		controller: ['$scope',function($scope) {
+			
+			console.log('Compiled the fCtrl')
+			console.log($scope.$$listeners);
+			console.log($scope.$$listenerCount);
+>>>>>>> origin/master
 			
 			var fCtrl = this;
 					
@@ -33,10 +43,24 @@ function(forecastParams) {
 			      if(fCtrl.forecastview == 'graph') {
 		          	$scope.$broadcast('renderChart');
 			      } else {
+<<<<<<< HEAD
 		          	$scope.$broadcast('renderGrid');
 			      }
   			};
 			 
+=======
+				  	$scope.$broadcast('renderGrid');
+		          	fCtrl.tEx = true;
+			      }
+  			};
+		}],
+		link: function(scope,elem,attrs) {
+			console.log('hit the link function of fCtrl');	
+			console.log(scope);
+			console.log(elem);
+			console.log(scope.$$listeners);
+			console.log(scope.$$listenerCount);
+>>>>>>> origin/master
 		}
 		
 	};
