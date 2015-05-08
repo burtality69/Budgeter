@@ -1,3 +1,4 @@
+/* global budgeterDirectives */
 budgeterDirectives.directive('forecastControls',['forecastParams',
 function(forecastParams) {
 	

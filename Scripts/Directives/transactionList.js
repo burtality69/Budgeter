@@ -17,11 +17,11 @@ function (ClsTransaction,transactionMgr) {
 
     		//New Transaction
 	    	this.expandAddTransaction= function () {
-	        	tListCtrl.addMode = true;
+	        	tListCtrl.listmgr.addMode = true;
 			};
 
 		    this.cancelNewTransaction = function () {
-		        tListCtrl.addMode = false;
+		        tListCtrl.listmgr.addMode = false;
 		    };
 
 		    //GET

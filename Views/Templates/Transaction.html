@@ -1,6 +1,6 @@
-<li class="transaction list-group-item clearfix" listmgr="listmgr" trans="trans" index = "$index" transactions="transactions" class="transaction" ng-show="transCtrl.visible()"</li>
+<div>
     <!-- COMPACT TRANSACTION VIEW-->
-    <div class="transactioncompact" ng-class="{'activetransaction': trans.expanded}">
+    <div class="transactioncompact" ng-class="{'activetransaction': transCtrl.trans.expanded}">
        <div class="row">
             <div class="col-sm-5">
                 <p>{{::transCtrl.trans.Name}}</p>
@@ -19,7 +19,8 @@
     <!--EXPANDED TRANSACTION VIEW-->
     <div class="transactionexpanded" ng-if="transCtrl.trans.expanded" style="padding:2px">
             <span ng-class="transCtrl.labelclass()">{{::trans.TypeDescription}}</span>
-            <ul class="list-group transactionvalues">                          <!--TRANSACTION VALUES-->
+            <ul class="list-group transactionvalues">                          
+                <!--TRANSACTION VALUES-->
                 <li class="transactionValueheader list-group-item clearfix">
                     <div class="clearfix row">
                         <div class="col-xs-2">Starts</div>
@@ -28,12 +29,13 @@
                         <div class="col-xs-2">Ends</div>
                         <div class="col-xs-2">Value</div>
                     </div>
-                    <div class="button-round-xs hvr-pop" ng-if="!transCtrl.addTVMode" ng-click="transCtrl.addTV()"><i>+</i></div>  <!-- NEW TRANSACTIONVALUE FORM-->
-                    <div transaction-value-editor ng-if="transCtrl.addTVMode" class="transactionValueEditor" frequencies="Frequencies" tv="tv" id = "row.ID" cancel="cancelNewTV" ></div>
+                    <div class="button-round-xs hvr-pop" ng-if="!transCtrl.addTVMode" ng-click="transCtrl.addTV()"><i>+</i></div>  
+                        <!-- NEW TRANSACTIONVALUE FORM-->
+                    <div transaction-value-editor ng-if="transCtrl.addTVMode" class="transactionValueEditor" tv="tv" id = "row.ID" cancel="cancelNewTV" ></div>
                 </li>
                 <!--TRANSACTION VALUES -->
                 <li transaction-value ng-repeat="tv in ::transCtrl.trans.TransactionValues" tv="tv" transID="trans.ID"></li>
-              </ul class="list-group">
+          </ul>
         <div class="transactioncontrolpanel">
           <div class="buttons" style="float:right; padding:5px;">
             <button class="btn btn-warning btn-xs" ng-show="!trans.editable" ng-click="editToggle(trans)">Edit</button>
@@ -43,4 +45,4 @@
           </div>
         </div>
     </div>
-</li>
+</div>

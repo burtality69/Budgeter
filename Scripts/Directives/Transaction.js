@@ -4,14 +4,12 @@ function(ClsTransaction,clsTransactionValue) {
 
   return {
     restrict: 'EA',
-    replace: true,
     require: '^transactionList',
     scope: {
         trans: '=',
         listmgr: '=',
         index: '='
     },
-    
     bindToController: true,
     controllerAs: 'transCtrl',
     controller: function () {
