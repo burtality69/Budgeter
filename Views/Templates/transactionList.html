@@ -1,0 +1,9 @@
+<li class="list-group-item transactionstitle clearfix">
+	<h5>Recurring transactions</h5>
+	<!--ADD button-->
+	<div class="button-round hvr-pop" ng-show="!tListCtrl.addMode && !tListCtrl.transactionhasfocus" ng-click="tListCtrl.expandAddTransaction()"><i>+</i></div>
+		<!-- NEW TRANSACTION FORM-->
+		<form transaction-editor ng-if="tListCtrl.addMode" </form>
+	<!--the transactions -->
+	<li transaction  ng-repeat="trans in ::tListCtrl.transactions" trans="trans" ng-if="!tListCtrl.addMode"></li>
+</li>

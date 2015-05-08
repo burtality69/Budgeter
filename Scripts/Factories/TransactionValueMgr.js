@@ -1,4 +1,4 @@
-budgeterFactories.factory('transactionValueMgr',['$http','$q','sessionService','clsTransaction',
+budgeterFactories.factory('transactionValueMgr',['$http','$q','sessionService','clsTransactionValue',
 function ($http, $q, sessionService, clsTransactionValue) {
 
     var token = sessionService.getToken();

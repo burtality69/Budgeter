@@ -8,22 +8,26 @@ function(forecastParams) {
 		controllerAs: 'fCtrl',
 		transclude: true,
 		scope: {},
-<<<<<<< HEAD
-      templateUrl: '/Views/templates/forecastControls.html',
-		controller: function($scope) {
-=======
+  		templateUrl: '/Views/templates/forecastControls.html',
 		controller: ['$scope',function($scope) {
-			
-			console.log('Compiled the fCtrl')
-			console.log($scope.$$listeners);
-			console.log($scope.$$listenerCount);
->>>>>>> origin/master
-			
+		
 			var fCtrl = this;
 					
 			this.forecastview = 'graph';
-
-  			this.forecastParams = forecastParams.getparams();
+			
+			var s = new Date();
+		    var e = new Date();
+		    e.setDate(e.getDate() + 90);
+			
+			var startdate = s;
+			var enddate = e;
+			var startbal = 0; 
+			
+  			this.forecastParams = {
+				  startdate: startdate,
+				  enddate: enddate,
+				  startbal: startbal
+			 };
 
 		  	this.headlines = {
 		      balance: 0,
@@ -43,26 +47,11 @@ function(forecastParams) {
 			      if(fCtrl.forecastview == 'graph') {
 		          	$scope.$broadcast('renderChart');
 			      } else {
-<<<<<<< HEAD
 		          	$scope.$broadcast('renderGrid');
 			      }
   			};
-			 
-=======
-				  	$scope.$broadcast('renderGrid');
-		          	fCtrl.tEx = true;
-			      }
-  			};
-		}],
-		link: function(scope,elem,attrs) {
-			console.log('hit the link function of fCtrl');	
-			console.log(scope);
-			console.log(elem);
-			console.log(scope.$$listeners);
-			console.log(scope.$$listenerCount);
->>>>>>> origin/master
-		}
-		
+			
+		}]		
 	};
 	
 }]);

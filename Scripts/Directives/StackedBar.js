@@ -6,13 +6,7 @@ function (forecastMgr,$timeout,forecastParams) {
         bindToController: true,
         require: '^forecastControls',
         controllerAs: 'graphCtrl',
-<<<<<<< HEAD
-        templateUrl: '/Views/Templates/stackedBar.html',
-        scope: true,
-        controller: function ($scope) {
-        
-=======
-        scope: true,
+        scope: {params: '='},
         transclude: true,
         template: '<div class="graphloading spinner" ng-show="graphCtrl.spin">' +
                     '<div class="cube1"></div>' +
@@ -24,17 +18,14 @@ function (forecastMgr,$timeout,forecastParams) {
             console.log('hit the graphCtrl controller');
             console.log($scope);
             
->>>>>>> origin/master
             var graphCtrl = this;
             
             this.data = undefined;
             
             this.spin = true;
             
-            this.params = forecastParams.getparams();
-            
-            this.refresh = function () {
-                forecastMgr.getForecast(forecastParams.getparams()).then(
+            this.refresh = function (params) {
+                forecastMgr.getForecast(params).then(
                     function (response) {
                     
                         graphCtrl.data = response;
@@ -54,29 +45,10 @@ function (forecastMgr,$timeout,forecastParams) {
                         //graphCtrl.headlines.outgoing = outgoing;
                 });
             };
-            
-<<<<<<< HEAD
-            this.refresh();
-            
-            $scope.$on('renderChart',function(){
-                forecastParams.setparams(graphCtrl.params);
-                graphCtrl.refresh();
-            });
-=======
-            //graphCtrl.refresh();
-            
-            $scope.$on('renderChart',graphCtrl.refresh());
->>>>>>> origin/master
-        
+                    
         }],
 
-        link: function(scope, elem, attrs) {
-            
-            console.log('hit the link function of graphCtrl');
-            console.log(elem);
-            console.log(scope);
-            console.log(scope.$$listeners);
-			console.log(scope.$$listenerCount);
+        link: function(scope, elem, attrs) {    
             
             scope.graphCtrl.render = function(data) {
             //Margins, width, height
@@ -236,7 +208,13 @@ function (forecastMgr,$timeout,forecastParams) {
                     scope.graphCtrl.spin = false;
                     scope.graphCtrl.data = [];   
             };
-                        
+            
+            scope.graphCtrl.refresh(scope.graphCtrl.params);
+            
+            scope.$on('renderChart',function(){
+                scope.graphCtrl.refresh(scope.graphCtrl.params);
+            });
+               
             scope.$watch(function(){return scope.graphCtrl.data;},
                function(newVal,oldVal) { 
                  if (newVal !== oldVal && newVal.length > 0) {

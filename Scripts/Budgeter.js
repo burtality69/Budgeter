@@ -1,6 +1,6 @@
 /// <reference path="../typings/angularjs/angular.d.ts"/>
-var Budgeter = angular.module('Budgeter', 
-['ngRoute', 
+var Budgeter = angular.module('Budgeter', [
+'ngRoute', 
 'ngCookies', 
 'ui.bootstrap', 
 'ngAnimate',

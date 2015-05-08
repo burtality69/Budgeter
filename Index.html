@@ -33,8 +33,8 @@
         <script src="Scripts\Models\clsBudgetModel.js"></script>
         <!--Controllers-->
         <script src="Scripts\Controllers\AuthController.js"></script>
-        <script src="Scripts\Controllers\TransactionListController.js"></script>
         <!--Directives-->
+        <script src="Scripts\Directives\transactionList.js"></script>
         <script src="Scripts\Directives\forecastControls.js"></script>
         <script src="Scripts\Directives\StackedBar.js"></script>
         <script src="Scripts\Directives\transactionValueEditor.js"></script>
@@ -61,17 +61,8 @@
           </section>
     
           <!-- Transactions table -->
-          <section class="col-lg-4 col-sm-12 transactionlistcontainer" ng-controller="transactionListController">
-              <ul class="list-group transactionlist">
-                  <li class="list-group-item transactionstitle clearfix">
-                      <h5>Recurring transactions</h5>
-                      <!--ADD button-->
-                      <div class="button-round hvr-pop" ng-show="!addMode && !transactionhasfocus" ng-click="expandAddTransaction()"><i>+</i></div>
-                      <!-- NEW TRANSACTION FORM-->
-                      <form transaction-editor ng-if="addMode" trans="newTransactionForm" cancel="cancelNewTransaction" add="postTransaction" freqs="Frequencies" types="TransactionTypes"> </form>
-                      <li transaction ng-repeat="trans in ::transactions" ng-if="!addMode"></li>
-                  </li>
-              </ul>
+          <section class="col-lg-4 col-sm-12 transactionlistcontainer">
+                  <transaction-list class="list-group transactionlist"> </transaction-list>
           </section>
         </main>
     </body>

@@ -1,5 +1,5 @@
-budgeterFactories.factory('transactionMgr',['$http','$q','sessionService','clsTransaction',
-function ($http, $q, sessionService, clsTransaction) {
+budgeterFactories.factory('transactionMgr',['$http','$q','sessionService','ClsTransaction',
+function ($http, $q, sessionService, ClsTransaction) {
 
     var token = sessionService.getToken();
     var headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }

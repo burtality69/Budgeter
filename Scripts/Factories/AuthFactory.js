@@ -1,3 +1,4 @@
+/* global budgeterFactories */
 budgeterFactories.factory('authFactory',['$http','$q','sessionService',function($http,$q,sessionService){
   return {
 
@@ -19,12 +20,12 @@ budgeterFactories.factory('authFactory',['$http','$q','sessionService',function(
         data: params,
         headers: headers
       })
-      .success(function(response){
-        result.resolve(response);
-      })
-      .error(function(response){
-        result.reject(response);
-      });
+        .success(function(response){
+          result.resolve(response);
+        })
+        .error(function(response){
+          result.reject(response);
+        });
 
       return result.promise;
     },
@@ -38,10 +39,10 @@ budgeterFactories.factory('authFactory',['$http','$q','sessionService',function(
       $http({method: 'POST',url: sessionService.apiUrl + '/api/Account/register',data: params,headers: headers})
           .success(function(response){
             result.resolve(response);
-        })
+          })
           .error(function(response){
             result.reject(response);
-      });
+          });
 
       return result.promise;
     },

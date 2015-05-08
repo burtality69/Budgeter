@@ -1,9 +1,11 @@
-budgeterDirectives.directive('transaction',['clsTransaction','clsTransactionValue',
-function(clsTransaction,clsTransactionValue) {
+/* global budgeterDirectives */
+budgeterDirectives.directive('transaction',['ClsTransaction','clsTransactionValue',
+function(ClsTransaction,clsTransactionValue) {
 
   return {
     restrict: 'EA',
     replace: true,
+    require: '^transactionList',
     scope: {
         trans: '=',
         listmgr: '=',
@@ -16,21 +18,21 @@ function(clsTransaction,clsTransactionValue) {
       
       var transCtrl = this;
       
-      transCtrl.visible = function() {
+      this.visible = function() {
           return !transCtrl.listmgr.addmode && transCtrl.index == transCtrl.listmgr.selecteditem || transCtrl.listmgr.selecteditem == undefined;
       };
       
-      transCtrl.barclass = function() {
+      this.barclass = function() {
         var v = transCtrl.trans.TypeDescription;
         return v == 'Income' ? 'progress-bar-success' : (v == 'Savings' ? 'progress-bar-warning' : 'progress-bar-danger');
       };
       
-      transCtrl.labelclass = function() {
+      this.labelclass = function() {
         var v = transCtrl.trans.TypeDescription;
         return v == 'Income' ? 'label label-success' : (v == 'Savings' ? 'label label-warning' : 'label label-danger');
       };
 
-      transCtrl.expandTransaction = function () {
+      this.expandTransaction = function () {
         if(!transCtrl.trans.expanded) {
           transCtrl.listmgr.selecteditem = transCtrl.index;
           transCtrl.trans.expanded = true;
@@ -40,7 +42,7 @@ function(clsTransaction,clsTransactionValue) {
         };
       };
       
-      transCtrl.addTV = function () {
+      this.addTV = function () {
         transCtrl.addTVMode = true;
       };
 

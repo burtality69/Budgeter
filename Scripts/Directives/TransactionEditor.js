@@ -1,6 +1,6 @@
 ﻿budgeterDirectives.directive('transactionEditor',
-['clsTransaction','transactionMgr','translistDropdowns','notifications','$rootScope','transactionValueMgr',
-function (clsTransaction, transactionMgr,transListdropdowns,notifications,$rootScope,transactionValueMgr) {
+['ClsTransaction','transactionMgr','translistDropdowns','notifications','$rootScope','transactionValueMgr',
+function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootScope,transactionValueMgr) {
   //This has a dependency on transactionmanager which interfaces with the API
 
     return {
@@ -13,7 +13,7 @@ function (clsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
         
         bindToController: true,
         controllerAs: 'transEdit',
-        controller: function ($scope) {
+        controller: function ($scope,$rootScope) {
           
           var transEdit = this;
           var newrecord = false;
@@ -31,14 +31,14 @@ function (clsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
 
           //What context is this being called in?
           if ($scope.trans == undefined) {
-            transEdit.Trans = new clsTransaction;
+            transEdit.Trans = new ClsTransaction;
             newrecord = true;
           } else {
-            transEdit.Trans = clsTransaction.build(transEdit.trans);
+            transEdit.Trans = ClsTransaction.build(transEdit.trans);
             newrecord = false;
           };
 
-          transEdit.submit = function () {
+          this.submit = function () {
 
             if (newrecord) {
               transactionMgr.post(transEdit.Trans).then(
@@ -55,19 +55,23 @@ function (clsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
             };
           };
 
-          transEdit.collapseTrans = function() {
+          this.collapseTrans = function() {
             transEdit.cancel(transEdit.tv)
           }
 
-          transEdit.delete = function () {
+          this.delete = function () {
             transactionValueMgr.delete(transEdit.Trans.ID).then(
               function (response) {
                 transEdit.Trans.message = response;
               });
           };
 
-          transEdit.clear = function() {
-            transEdit.tvToEdit = new clsTransaction;
+          this.clear = function() {
+            transEdit.tvToEdit = new ClsTransaction();
+          };
+          
+          this.cancel = function() {
+            transEdit.cancel();
           }
 
         },

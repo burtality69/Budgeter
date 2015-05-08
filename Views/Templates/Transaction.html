@@ -17,7 +17,7 @@
         </div>
     </div>
     <!--EXPANDED TRANSACTION VIEW-->
-    <div class="transactionexpanded" ng-show="transCtrl.trans.expanded" style="padding:2px">
+    <div class="transactionexpanded" ng-if="transCtrl.trans.expanded" style="padding:2px">
             <span ng-class="transCtrl.labelclass()">{{::trans.TypeDescription}}</span>
             <ul class="list-group transactionvalues">                          <!--TRANSACTION VALUES-->
                 <li class="transactionValueheader list-group-item clearfix">
@@ -32,7 +32,7 @@
                     <div transaction-value-editor ng-if="transCtrl.addTVMode" class="transactionValueEditor" frequencies="Frequencies" tv="tv" id = "row.ID" cancel="cancelNewTV" ></div>
                 </li>
                 <!--TRANSACTION VALUES -->
-                <li transaction-value ng-repeat="tv in transCtrl.trans.TransactionValues" tv="tv" transID="trans.ID"></li>
+                <li transaction-value ng-repeat="tv in ::transCtrl.trans.TransactionValues" tv="tv" transID="trans.ID"></li>
               </ul class="list-group">
         <div class="transactioncontrolpanel">
           <div class="buttons" style="float:right; padding:5px;">
