@@ -8,17 +8,13 @@ function(ClsTransaction,clsTransactionValue) {
     scope: {
         trans: '=',
         listmgr: '=',
-        index: '='
+        index: '=',
     },
     bindToController: true,
     controllerAs: 'transCtrl',
     controller: function () {
       
       var transCtrl = this;
-      
-      this.visible = function() {
-          return !transCtrl.listmgr.addmode && transCtrl.index == transCtrl.listmgr.selecteditem || transCtrl.listmgr.selecteditem == undefined;
-      };
       
       this.barclass = function() {
         var v = transCtrl.trans.TypeDescription;
@@ -43,7 +39,15 @@ function(ClsTransaction,clsTransactionValue) {
       this.addTV = function () {
         transCtrl.addTVMode = true;
       };
-
+      
+    },
+    
+    link: function (scope,elem,attrs,tlCtrl) {
+      
+      scope.transCtrl.delete = function() {
+        scope.tlCtrl.delete(scope.transCtrl.index);
+      };
+      
     },
 
     templateUrl: '/Views/Templates/Transaction.html'

@@ -6,7 +6,7 @@
     </div>
     <div class="form-group form-inline">
         <label for="newitemDescription">Type</label>
-        <select class="input-xs-flat" type="text" ng-options="type.ID as type.Description for type in ::transEdit.types" placeholder="type" ng-model="Trans.TypeID" /> 
+        <select class="input-xs-flat" type="text" ng-options="type.ID as type.Description for type in ::transEdit.types" placeholder="type" ng-model="transEdit.Trans.TypeID" /> 
     </div>
     <div class="form-group form-inline">
         <label for="newitemAmount">Amount</label>
@@ -14,7 +14,7 @@
     </div>
     <div class="form-group form-inline">
         <label for="newitemFreq">Occurs</label>
-        <select class="input-xs-flat" type="text" ng-options="freq.ID as freq.Description for freq in ::transEdit.freqs" placeholder="frequency" ng-model="Trans.TransactionValues[0].FrequencyID" /> 
+        <select class="input-xs-flat" type="text" ng-options="freq.ID as freq.Description for freq in ::transEdit.freqs" placeholder="frequency" ng-model="transEdit.Trans.TransactionValues[0].FrequencyID" /> 
     </div>
     <div class="form-group form-inline">
         <label for="newitemDay">On Day</label>
@@ -28,9 +28,8 @@
         <label for="newitemStart">End Date</label>
         <input class="input-xs-flat" type="date" ng-model="transEdit.Trans.TransactionValues[0].End_date" /> 
     </div>
-    <p>{{Trans.Message}}</p>
     <div class="newTransactionControls" style="float:right; padding:5px;">
-        <button class="btn btn-xs btn-primary" type="button" ng-click="submit()">Add</button>
-        <button class="btn btn-xs btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-xs btn-primary" type="button" ng-click="transEdit.submit()">Add</button>
+        <button class="btn btn-xs btn-danger" type="button" ng-click="transEdit.cancel()">Cancel</button>
     </div>
 </div>

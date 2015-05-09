@@ -39,7 +39,7 @@
         <div class="transactioncontrolpanel">
           <div class="buttons" style="float:right; padding:5px;">
             <button class="btn btn-warning btn-xs" ng-show="!trans.editable" ng-click="editToggle(trans)">Edit</button>
-            <button class="btn btn-danger btn-xs" ng-show="!trans.editable" ng-click="deleteTransaction(trans.ID)">Delete</button>
+            <button class="btn btn-danger btn-xs" ng-show="!trans.editable" ng-click="transCtrl.delete()">Delete</button>
             <button class="btn btn-danger btn-xs" ng-show="trans.editable" ng-click="editToggle(trans)">Cancel</button>
             <button class="btn btn-success btn-xs" ng-show="trans.editable" ng-click="putTransaction(rowtoedit)">Save</button>
           </div>

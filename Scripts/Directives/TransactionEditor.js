@@ -5,10 +5,10 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
 
     return {
         restrict: 'EA',
+        require: '^transactionList',
         scope: {
-          cancel: '=',
           trans: '=',
-          transactions: '='
+          listmgr: '='
         },
         
         bindToController: true,
@@ -30,7 +30,7 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
 
 
           //What context is this being called in?
-          if ($scope.trans == undefined) {
+          if (transEdit.trans == undefined) {
             transEdit.Trans = new ClsTransaction;
             newrecord = true;
           } else {
@@ -42,10 +42,11 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
 
             if (newrecord) {
               transactionMgr.post(transEdit.Trans).then(
-                function (response) {
-                  console.log(response);
-                  $rootScope.$broadcast('redrawChart');
-                  notifications.showSuccess({message: 'Task Updated'});
+                function (success) {
+                  $rootScope.$broadcast('renderChart');
+                  notifications.showSuccess({message: 'Task added successfully'});
+                }, function(failure) {
+                 notifications.showError({message: failure}); 
                 });
             } else {
               transactionMgr.put(transEdit.Trans).then(
@@ -71,8 +72,8 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
           };
           
           this.cancel = function() {
-            transEdit.cancel();
-          }
+            transEdit.listmgr.addMode = false;
+          };
 
         },
         templateUrl: "/Views/Templates/transactionEditor.html"
