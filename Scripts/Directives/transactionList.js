@@ -6,9 +6,10 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 		templateUrl: 'Views/Templates/transactionList.html',
 		scope: {},
 		controllerAs: 'tListCtrl',
-		controller: function () {
+		controller: function ($scope) {
 			
-			var tListCtrl = this; 
+			var tListCtrl = this;
+			 
 			this.listmgr = {
 		      addMode: false,
 		      selecteditem: undefined,
@@ -44,11 +45,13 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 			        });
 		    };
 			
-			this.deleteTrans = function(index) {
-				transactionMgr.delete(index).then(
+			this.deleteTrans = function(trans,index) {
+				transactionMgr.delete(trans.ID).then(
 					function (success) {
 						notifications.showSuccess({message: 'Transaction deleted successfully'});
-						tListCtrl.transactions.splice(index);		
+						tListCtrl.transactions.splice(index,1);
+						tListCtrl.listmgr.selecteditem = undefined;
+						$scope.$apply;		
 					}, function (error) {
 						notifications.showError({message: 'Unable to delete this item'});
 					});
@@ -61,6 +64,9 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 	                function (success) {
 	                  $rootScope.$broadcast('renderChart');
 	                  notifications.showSuccess({message: 'Task added successfully'});
+					  tListCtrl.transactions.push(trans);
+					  tListCtrl.listmgr.addMode = false;
+					  $scope.$apply;
 	                }, function(failure) {
 	                 notifications.showError({message: failure}); 
 	                });
@@ -72,7 +78,7 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 	            };
           };
 			
-			refresh();
+		  refresh();
 			
 		}
 		

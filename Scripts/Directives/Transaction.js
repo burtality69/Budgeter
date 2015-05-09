@@ -45,7 +45,7 @@ function(ClsTransaction,clsTransactionValue) {
     link: function (scope,elem,attrs,ctrl) {
       
       scope.transCtrl.delete = function() {
-        ctrl.deleteTrans(scope.transCtrl.index);
+        ctrl.deleteTrans(scope.transCtrl.trans, scope.transCtrl.index);
       };
       
     },

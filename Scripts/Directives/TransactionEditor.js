@@ -62,7 +62,7 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
         
         link: function(scope,elem,attrs,ctrl) {
          scope.transEdit.submit = function() {
-           ctrl.addTrans(scope.transEdit.tvToEdit);
+           ctrl.addTrans(scope.transEdit.Trans);
          };
         }
         
