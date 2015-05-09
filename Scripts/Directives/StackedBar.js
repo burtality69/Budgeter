@@ -15,9 +15,6 @@ function (forecastMgr,$timeout,forecastParams) {
                   '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>',
         controller: ['$scope',function ($scope) {
             
-            console.log('hit the graphCtrl controller');
-            console.log($scope);
-            
             var graphCtrl = this;
             
             this.data = undefined;
@@ -85,7 +82,6 @@ function (forecastMgr,$timeout,forecastParams) {
         
                 //Create a SVG and add a 'g' (generic svg element)
                 d3.select("svg").remove();
-                console.log('removed the svg');
                 var svg = d3.select(elem.children()[1]).append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("class","graphcanvas")
@@ -218,7 +214,6 @@ function (forecastMgr,$timeout,forecastParams) {
             scope.$watch(function(){return scope.graphCtrl.data;},
                function(newVal,oldVal) { 
                  if (newVal !== oldVal && newVal.length > 0) {
-                   console.log('watch function hit');
                    scope.graphCtrl.render(newVal);
                    }
             },true);

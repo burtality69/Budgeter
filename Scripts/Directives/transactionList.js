@@ -1,6 +1,6 @@
 /* global budgeterDirectives */
-budgeterDirectives.directive('transactionList',['ClsTransaction','transactionMgr','notifications',
-function (ClsTransaction,transactionMgr,notifications) {
+budgeterDirectives.directive('transactionList',['ClsTransaction','transactionMgr','notifications','$rootScope',
+function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 	
 	return {
 		templateUrl: 'Views/Templates/transactionList.html',
@@ -47,11 +47,30 @@ function (ClsTransaction,transactionMgr,notifications) {
 			this.deleteTrans = function(index) {
 				transactionMgr.delete(index).then(
 					function (success) {
-						notifications.showSuccess({message: 'Task added successfully'});		
+						notifications.showSuccess({message: 'Transaction deleted successfully'});
+						tListCtrl.transactions.splice(index);		
 					}, function (error) {
-						notifications.showError({message: error})
+						notifications.showError({message: 'Unable to delete this item'});
 					});
 			};
+			
+			this.addTrans = function (trans) {
+
+				if (trans.ID == undefined) {
+	              transactionMgr.post(trans).then(
+	                function (success) {
+	                  $rootScope.$broadcast('renderChart');
+	                  notifications.showSuccess({message: 'Task added successfully'});
+	                }, function(failure) {
+	                 notifications.showError({message: failure}); 
+	                });
+	            } else {
+	              transactionMgr.put(trans).then(
+	                function (response) {
+	                  notifications.showSuccess({message: 'Transaction updated..'})
+	                });
+	            };
+          };
 			
 			refresh();
 			

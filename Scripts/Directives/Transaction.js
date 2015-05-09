@@ -42,10 +42,10 @@ function(ClsTransaction,clsTransactionValue) {
       
     },
     
-    link: function (scope,elem,attrs,tlCtrl) {
+    link: function (scope,elem,attrs,ctrl) {
       
       scope.transCtrl.delete = function() {
-        scope.tlCtrl.delete(scope.transCtrl.index);
+        ctrl.deleteTrans(scope.transCtrl.index);
       };
       
     },

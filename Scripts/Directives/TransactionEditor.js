@@ -38,24 +38,6 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
             newrecord = false;
           };
 
-          this.submit = function () {
-
-            if (newrecord) {
-              transactionMgr.post(transEdit.Trans).then(
-                function (success) {
-                  $rootScope.$broadcast('renderChart');
-                  notifications.showSuccess({message: 'Task added successfully'});
-                }, function(failure) {
-                 notifications.showError({message: failure}); 
-                });
-            } else {
-              transactionMgr.put(transEdit.Trans).then(
-                function (response) {
-                  transEdit.Trans.message = response;
-                });
-            };
-          };
-
           this.collapseTrans = function() {
             transEdit.cancel(transEdit.tv)
           }
@@ -76,7 +58,14 @@ function (ClsTransaction, transactionMgr,transListdropdowns,notifications,$rootS
           };
 
         },
-        templateUrl: "/Views/Templates/transactionEditor.html"
+        templateUrl: "/Views/Templates/transactionEditor.html",
+        
+        link: function(scope,elem,attrs,ctrl) {
+         scope.transEdit.submit = function() {
+           ctrl.addTrans(scope.transEdit.tvToEdit);
+         };
+        }
+        
 
     };
 }]);
