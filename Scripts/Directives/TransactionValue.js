@@ -14,12 +14,12 @@ function (clsTransactionValue,transactionValueMgr,notifications) {
         controller: function () {
             
             var tvCtrl = this;
-            tvCtrl.edit = function () {
+            
+            this.edit = function () {
               tvCtrl.tv.editable = true;
-            }
+            };
 
-            tvCtrl.delete = function () {
-
+            this.delete = function () {
               transactionValueMgr.delete(tvCtrl.tv.ID).then(
                 function (response) {
                   notifications.showSuccess({message: 'Task Deleted'});

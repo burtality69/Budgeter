@@ -1,16 +1,74 @@
 ﻿
 html {
     height: 100%;
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 body {
     height: 100%;
-    background-color: #e0e4ff;
+    background-color: #dddddd;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
 }
 
+/* NAV */
+.NavBar {
+    /*background-color: #799198;*/ 
+    height: 8%;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background-color: #555555;
+}
+
+.NavBar .loginpanel {
+    float: right;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-right: 15px;
+}
+
+.NavBar .loginpanel a {
+  color:  tomato;
+}
+
+.btn .btn-primary {
+  color: tomato;
+}
+
+.loginRegisterModal .loginRegisterModalTabs
+{
+    list-style: none;
+    display: inline-block;
+}
+
+.sectionheader {
+    width: 100%;
+    background-color: #eeeeff;
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 0;
+    margin: 0;
+}
+
+.sectiontitle {
+  padding: 5px 10px 5px 10px;
+  font-size: 14px;
+}
+
+section {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/* MAIN */
 main {
     height: 100%;
-    padding: 10px 5px 10px 5px;
+    padding: 10px;
+    border: 0;
 }
 
 .button-round {
@@ -95,51 +153,19 @@ input:focus {
   color: rgba(81, 203, 238, 1);
 }
 
-.boxtitle {
-    width: 100%;
-    padding: 5px;
-    margin: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* NAV */
-.NavBar {
-    background-color: #799198;
-    padding: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.3);
-    width: 100%;
-}
-
-.NavBar .loginpanel {
-    float: right;
-}
-
-.loginRegisterModal .loginRegisterModalTabs
-{
-    list-style: none;
-    display: inline-block;
-}
-
 /* FORECAST */
 
 .forecast {
     position: relative;
-    border-radius: 4px;
-    padding: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 1px 4px rgba(0,0,0,.3);
+    padding: 0;
 }
 
 .forecastdetails {
     display: inline;
 }
 
-.forecastparameters {
-  padding-bottom: 30px;
-}
-
-.forecastparameters.form-group {
-    padding: 2px;
+.forecastviewmode {
+  float: right;
 }
 
 .forecastheader {
@@ -151,6 +177,7 @@ input:focus {
 }
 .graphcontainer {
     height: 100%;
+    width: 100%;
     top: 50px;
 }
 
@@ -179,13 +206,13 @@ input:focus {
 .graphcontainer .balanceline {
     fill: none;
     stroke: steelblue;
-    stroke-width: 2px;
+    stroke-width: 3px;
 }
 
 .graphcontainer .savingsline {
     fill: none;
     stroke: #f0ad4e;
-    stroke-width: 2px;
+    stroke-width: 3px;
 }
 
 .headlines {
@@ -194,42 +221,87 @@ input:focus {
 }
 
 .headline {
-    box-shadow: 0 1px 4px rgba(0,0,0,.3);
     padding-left: 15px;
     padding-right: 15px;
-    display: inline;
+    padding-bottom: 10px;
     -webkit-align-content:center;
     align-content: center;
     -ms-align-content: center;
-    color: #e0e0e0;
+}
+
+.headline .headlinename {
+  font-size: small;
+  font-weight: 100;
+}
+
+.headline .headlinevalue {
+  font-size: larger;
+  font-weight: 600;
+}
+
+.headline .headlineimage {
+  width: 30%;
 }
 
 .savings {
-    background-color: #f0ad4e!important;
+    color: #f0ad4e!important;
 }
 
 .balance {
-    background-color: #0066FF!important;
+    color: #0066FF!important;
 }
 
 .spending {
-    background-color: #f53f3f!important;
+    color: #f53f3f!important;
 }
 
 .income {
-    background-color: #5cb85c!important;
+    color: #5cb85c;
+    /*background-color: #5cb85c!important;*/
+}
+
+/* GRIDBYMONTH */
+
+.gridByMonth {
+  padding-top:10px;
+  overflow-x: scroll;
+  float: left;
+}
+.datagrid {
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.datagrid td {
+  color:#0066cc;
+  font-weight: lighter;
+}
+
+.datagrid td, th {
+  text-align: center;
+}
+
+.datagrid tr :first-child {
+  font-weight: 600;
+  text-align: right;
+}
+
+.datagrid th {
+  font-weight: 600;
 }
  /* TRANSACTION LIST */
+
+.transactionlistcontainer {
+  padding: 0;
+}
 
 .transactionlist {
     width: 100%;
     position: relative;
     float: right;
     font-size: 10px;
-    border-radius: 0;
     padding-right: 0;
     margin-bottom: 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,.3);
 }
 
 .transactionlist .transaction {
@@ -322,18 +394,6 @@ input:focus {
    max-height: 999px;
    opacity:1;
 }
-
-/* GRIDBYMONTH */
-
-.gridByMonth {
-  overflow-x: scroll;
-}
-.datagrid {
-  padding: 10px;
-  white-space: nowrap;
-}
-
-
 
 /* EFFECTS */
 

@@ -21,7 +21,7 @@ function (clsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
             var backup = undefined;
             var newrecord = false;
 
-            tvEditCtrl.collapse = function() {
+            this.collapse = function() {
               tvEditCtrl.tv.editable = false;
             };
 
@@ -31,7 +31,7 @@ function (clsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
               });
 
             //Populate model depending on context
-            if (tvEditCtrl.tv == undefined) {
+            if (this.tv == undefined) {
               tvEditCtrl.tv = new clsTransactionValue;
               tvEditCtrl.tv.TransactionID = tvEditCtrl.id;
               newrecord = true;
@@ -41,7 +41,7 @@ function (clsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
               tvEditCtrl.transID = tvEditCtrl.tv.TransactionID;
             };
 
-            tvEditCtrl.submit = function () {
+            this.submit = function () {
 
               if (newrecord) {
                 transactionValueMgr.post(tvEditCtrl.tv).then(
@@ -58,7 +58,7 @@ function (clsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
               };
             };
 
-            tvEditCtrl.cancel = function() {
+            this.cancel = function() {
 
               if (newrecord) {
                 tvEditCtrl.cancel();
@@ -66,10 +66,9 @@ function (clsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
                 tvEditCtrl.tv = backup;
                 tvEditCtrl.tv.editable = false;
               };
-            }
+            };
 
-            tvEditCtrl.delete = function () {
-
+            this.delete = function () {
               transactionValueMgr.delete(tvEditCtrl.tv.ID).then(
                 function (response) {
                   notifications.showSuccess({message: 'Task deleted'});

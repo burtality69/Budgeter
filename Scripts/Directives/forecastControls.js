@@ -16,18 +16,32 @@ function(forecastParams) {
 					
 			this.forecastview = 'graph';
 			
+			var mthOffset = 1;
 			var s = new Date();
 		    var e = new Date();
-		    e.setDate(e.getDate() + 90);
+			
+			function lastDay (date,offset) { 
+				return new Date(e.getFullYear(), e.getMonth() + mthOffset, 0);
+			};
+			
+			this.mthFwd = function() {
+				mthOffset += 1;
+				fCtrl.forecastParams.enddate = lastDay(e,mthOffset);
+			};
+			
+			this.mthBk = function() {
+				mthOffset -=1;
+				fCtrl.forecastParams.enddate = lastDay(e,mthOffset);
+			}; 
 			
 			var startdate = s;
-			var enddate = e;
+			var enddate = lastDay(e,mthOffset);
 			var startbal = 0; 
 			
   			this.forecastParams = {
 				  startdate: startdate,
 				  enddate: enddate,
-				  startbal: startbal
+				  startbal: startbal,
 			 };
 
 		  	this.headlines = {

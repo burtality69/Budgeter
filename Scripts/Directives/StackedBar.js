@@ -12,11 +12,18 @@ function (forecastMgr,$timeout,forecastParams) {
                     '<div class="cube1"></div>' +
                     '<div class="cube2"></div>' +
                   '</div>' +
-                  '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>',
+                  '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>' +
+                  '<div class="headlines">' +
+                      '<headline-item class="headline income" icon="fa fa-plus fa-3x" name="Income" value="graphCtrl.headlines.income"></headline-item>' +
+                      '<headline-item class="headline spending" icon="fa fa-minus fa-3x" name="Spending" value="graphCtrl.headlines.spending"></headline-item>' +
+                      '<headline-item class="headline balance" icon="fa fa-university fa-3x" name="Balance" value="graphCtrl.headlines.balance"></headline-item>' +
+                      '<headline-item class="headline savings" icon="fa fa-money fa-3x" name="Savings" value="graphCtrl.headlines.savings"></headline-item>' +
+                  '</div>',
         controller: ['$scope',function ($scope) {
             
             var graphCtrl = this;
             
+            this.headlines = {balance: 0, savings: 0, income: 0, spending: 0};
             this.data = undefined;
             
             this.spin = true;
@@ -36,10 +43,10 @@ function (forecastMgr,$timeout,forecastParams) {
                             outgoing += response[i].total_deductions;
                         }
             
-                        //graphCtrl.headlines.balance = lastrow.balance;
-                        //graphCtrl.headlines.savings = lastrow.total_savings;
-                        //graphCtrl.headlines.income = income;
-                        //graphCtrl.headlines.outgoing = outgoing;
+                        graphCtrl.headlines.balance = lastrow.balance;
+                        graphCtrl.headlines.savings = lastrow.total_savings;
+                        graphCtrl.headlines.income = income;
+                        graphCtrl.headlines.spending = outgoing;
                 });
             };
                     
@@ -48,14 +55,23 @@ function (forecastMgr,$timeout,forecastParams) {
         link: function(scope, elem, attrs) {    
             
             scope.graphCtrl.render = function(data) {
-            //Margins, width, height
-                var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-                    width = 800 - margin.left - margin.right,
-                    height = 500 - margin.top - margin.bottom;
+            
+                //Margins, width, height
+                var margin = { top: 40, right: 40, bottom: 60, left: 40 },
+                    h = window.innerHeight * 0.5,
+                    width = parseInt(d3.select('#forecast').style('width'), 10) - margin.left - margin.right,
+                    height = parseInt(d3.select('#forecast').style('height'), 10) - margin.top - margin.bottom;
         
                 var parseDate = function (date) {
                     return new Date(date);
                 };
+                
+                //Declare colours
+                var positives = '#5cb85c',
+                negatives = "#CC5343", 
+                savings = "#3829AA",
+                accumulation = "#f0ad4e",
+                other = "#0066FF";
                 
                 //X scale
                 var x = d3.time.scale()
@@ -67,7 +83,7 @@ function (forecastMgr,$timeout,forecastParams) {
         
                 //Colour palette as a scale
                 var color = d3.scale.ordinal()
-                    .range(["#5cb85c", "#f53f3f","#f0ad4e", "#0066FF"]);
+                    .range([positives,negatives,savings,other]);
         
                 //XAxis Declare
                 var xAxis = d3.svg.axis()
@@ -82,7 +98,8 @@ function (forecastMgr,$timeout,forecastParams) {
         
                 //Create a SVG and add a 'g' (generic svg element)
                 d3.select("svg").remove();
-                var svg = d3.select(elem.children()[1]).append("svg")
+                
+                var svg = d3.select('#graphdiv').append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("class","graphcanvas")
                     .attr("height", height + margin.top + margin.bottom)
@@ -105,11 +122,13 @@ function (forecastMgr,$timeout,forecastParams) {
         
                 //Total Bank Balance
                 var balanceline = d3.svg.line()
+                  .interpolate("basis")
                   .x(function (d) { return x(d.caldate); })
                   .y(function (d) { return y(d.balance); });
         
                 //Total Savings
                 var savingsline = d3.svg.line()
+                  .interpolate("basis")
                   .x(function (d) { return x(d.caldate); })
                   .y(function (d) { return y(d.total_savings); });
         
@@ -160,7 +179,8 @@ function (forecastMgr,$timeout,forecastParams) {
                 .enter().append("g")
                     .attr("class", "g")
                     .attr("transform", function (d) { return "translate(" + x(d.caldate) + ",0)"; });
-        
+                
+                //Create the rectangles 
                 bars.selectAll("rect")
                     .data(function (d) { return [d.amounts[0], d.amounts[1]];})
                   .enter().append("rect")
@@ -168,7 +188,8 @@ function (forecastMgr,$timeout,forecastParams) {
                     .attr("y", y(0))
                     .attr("height", 0)
                     .style("fill", function (d) { return color(d.name); });
-        
+                
+                //Animate the bar transition
                 bars.selectAll("rect")
                     .transition()
                     .attr("y", function (d) { return y(d.yPos); })
@@ -180,26 +201,6 @@ function (forecastMgr,$timeout,forecastParams) {
                     .data(function (d) { return [d.labels]; })
                     .enter().append("svg:title")
                     .text(function (d) { return JSON.stringify(d); });
-        
-                //Create a legend
-                var legend = svg.selectAll(".legend")
-                    .data(color.domain().slice().reverse())
-                    .enter().append("g")
-                    .attr("class", "legend")
-                    .attr("transform", function (d, i) { return "translate(-20," + i * 20 + ")"; });
-        
-                    legend.append("rect")
-                        .attr("x", width - 18)
-                        .attr("width", 18)
-                        .attr("height", 18)
-                        .style("fill", color);
-        
-                    legend.append("text")
-                        .attr("x", width - 24)
-                        .attr("y", 9)
-                        .attr("dy", ".35em")
-                        .style("text-anchor", "end")
-                        .text(function (d) { return d; });
                     
                     scope.graphCtrl.spin = false;
                     scope.graphCtrl.data = [];   

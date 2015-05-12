@@ -48,6 +48,7 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 			this.deleteTrans = function(trans,index) {
 				transactionMgr.delete(trans.ID).then(
 					function (success) {
+						$rootScope.$broadcast('renderChart');
 						notifications.showSuccess({message: 'Transaction deleted successfully'});
 						tListCtrl.transactions.splice(index,1);
 						tListCtrl.listmgr.selecteditem = undefined;
@@ -64,7 +65,7 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 	                function (success) {
 	                  $rootScope.$broadcast('renderChart');
 	                  notifications.showSuccess({message: 'Task added successfully'});
-					  tListCtrl.transactions.push(trans);
+					  tListCtrl.transactions.push(success);
 					  tListCtrl.listmgr.addMode = false;
 					  $scope.$apply;
 	                }, function(failure) {
