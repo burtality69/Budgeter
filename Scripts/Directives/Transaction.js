@@ -1,6 +1,6 @@
 /* global budgeterDirectives */
-budgeterDirectives.directive('transaction',['ClsTransaction','clsTransactionValue',
-function(ClsTransaction,clsTransactionValue) {
+budgeterDirectives.directive('transaction',['ClsTransaction','ClsTransactionValue',
+function(ClsTransaction,ClsTransactionValue) {
 
   return {
     restrict: 'EA',

@@ -1,5 +1,5 @@
-budgeterDirectives.directive('transactionValue',['clsTransactionValue','transactionValueMgr','notifications', 
-function (clsTransactionValue,transactionValueMgr,notifications) {
+budgeterDirectives.directive('transactionValue',['ClsTransactionValue','transactionValueMgr','notifications', 
+function (ClsTransactionValue,transactionValueMgr,notifications) {
 // This is a
 
     return {
@@ -8,7 +8,8 @@ function (clsTransactionValue,transactionValueMgr,notifications) {
           tv: '=',
           transID: '='
         },
-        
+        replace: true,
+        transclude: true,
         controllerAs: 'tvCtrl',
         bindToController: true,
         controller: function () {

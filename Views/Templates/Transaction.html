@@ -28,10 +28,10 @@
                     </div>
                     <div class="button-round-xs hvr-pop" ng-if="!transCtrl.addTVMode" ng-click="transCtrl.addTV()"><i>+</i></div>  
                         <!-- NEW TRANSACTIONVALUE FORM-->
-                    <div transaction-value-editor ng-if="transCtrl.addTVMode" class="transactionValueEditor" tv="tv" id = "row.ID" cancel="cancelNewTV" ></div>
+                    <div transaction-value-editor ng-if="transCtrl.addTVMode" class="transactionValueEditor" tv="tv" transID = "transCtrl.trans.ID" cancel="cancelNewTV" ></div>
                 </li>
                 <!--TRANSACTION VALUES -->
-                <li transaction-value ng-repeat="tv in ::transCtrl.trans.TransactionValues" tv="tv" transID="trans.ID"></li>
+                <li transaction-value ng-repeat="tv in ::transCtrl.trans.TransactionValues" tv="tv" transID="transCtrl.trans.ID"></li>
           </ul>
         <div class="transactioncontrolpanel">
           <div class="buttons" style="float:right; padding:5px;">

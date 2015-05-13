@@ -1,5 +1,5 @@
-budgeterFactories.factory('transactionValueMgr',['$http','$q','sessionService','clsTransactionValue',
-function ($http, $q, sessionService, clsTransactionValue) {
+budgeterFactories.factory('transactionValueMgr',['$http','$q','sessionService','ClsTransactionValue',
+function ($http, $q, sessionService, ClsTransactionValue) {
 
     var token = sessionService.getToken();
     var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
@@ -22,13 +22,13 @@ function ($http, $q, sessionService, clsTransactionValue) {
       return result.promise;
     },
 
-    post: function(clsTransactionValue) {
+    post: function(ClsTransactionValue) {
 
         var result = $q.defer();
 
-        //var tv = clsTransactionValue.formatforApi();
+        //var tv = ClsTransactionValue.formatforApi();
 
-        $http({method: 'POST',url: apiroot ,headers: headers,data: tv })
+        $http({method: 'POST',url: apiroot ,headers: headers,data: ClsTransactionValue })
             .success(function (response) {
                 result.resolve(response);
             })
@@ -39,13 +39,13 @@ function ($http, $q, sessionService, clsTransactionValue) {
         return result.promise;
     },
 
-    put: function (clsTransactionValue) {
+    put: function (ClsTransactionValue) {
 
         var result = $q.defer();
 
-        var tv = clsTransactionValue.formatforApi();
+        var tv = ClsTransactionValue.formatforApi();
 
-        $http({method: 'PUT', url: apiroot + '/' + tv.ID, headers: headers, data: tv})
+        $http({method: 'PUT', url: apiroot + '/' + tv.ID, headers: headers, data: ClsTransactionValue})
             .success(function (response) {
                 result.resolve(response);
             })

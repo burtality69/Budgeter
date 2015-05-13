@@ -17,11 +17,11 @@
       </div>
    </div>
    
-   <div ng-show="fCtrl.forecastview=='graph'">
+   <div ng-if="fCtrl.forecastview=='graph'">
       <stacked-bar class="graphcontainer clearfix" params="fCtrl.forecastParams"></stacked-bar>
    </div>
       <!--TABLE-->
-   <div ng-show="fCtrl.forecastview == 'table'">
+   <div ng-if="fCtrl.forecastview == 'table'">
       <grid-by-month class="gridByMonth" params="fCtrl.forecastParams"></grid-by-month>
    </div>
 </div>

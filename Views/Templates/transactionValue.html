@@ -9,5 +9,5 @@
       <div class="col-xs-1"><i class="fa fa-trash-o" ng-click="tvCtrl.delete()"></i></div>
   </div>
   <!--TRANSACTION VALUE EDITOR-->
-  <div transaction-value-editor class="transactionValueEditor" ng-if="tvEditCtrl.tv.editable" frequencies="Frequencies" tv="tvCtrl.tv" transID="transID" cancel="cancelTVEdit"></div>
+  <div transaction-value-editor class="transactionValueEditor" ng-if="tvCtrl.tv.editable" tv="tvCtrl.tv" transID="tvCtrl.transID" cancel="tvCtrl.cancelTVEdit"></div>
 </li>

@@ -1,6 +1,6 @@
-budgeterModels.factory('clsTransactionValue',['dateParser',function (dateParser) {
+budgeterModels.factory('ClsTransactionValue',['dateParser',function (dateParser) {
 
-  function clsTransactionValue(ID, TransactionID, Value, FrequencyID, FrequencyDescription, Day, Start_date, End_date) {
+  function ClsTransactionValue(ID, TransactionID, Value, FrequencyID, FrequencyDescription, Day, Start_date, End_date) {
       // Public properties, assigned to the instance ('this')
       this.ID = ID,
       this.TransactionID = TransactionID,
@@ -14,9 +14,9 @@ budgeterModels.factory('clsTransactionValue',['dateParser',function (dateParser)
       this.expanded = false
   }
 
-  clsTransactionValue.build = function (data) {
+  ClsTransactionValue.build = function (data) {
 
-      return new clsTransactionValue (
+      return new ClsTransactionValue (
           ID = data.ID,
           TransactionID = data.TransactionID,
           Value = data.Value,
@@ -30,7 +30,7 @@ budgeterModels.factory('clsTransactionValue',['dateParser',function (dateParser)
     );
   };
 
-  clsTransactionValue.prototype.formatforApi = function () {
+  ClsTransactionValue.prototype.formatforApi = function () {
     return {
       ID: this.ID,
       TransactionID: this.TransactionID,
@@ -42,6 +42,6 @@ budgeterModels.factory('clsTransactionValue',['dateParser',function (dateParser)
     };
   };
 
-    return clsTransactionValue;
+    return ClsTransactionValue;
     
 }]);

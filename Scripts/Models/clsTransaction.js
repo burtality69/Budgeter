@@ -1,4 +1,4 @@
-﻿budgeterModels.factory('ClsTransaction',['clsTransactionValue',function (clsTransactionValue) {
+﻿budgeterModels.factory('ClsTransaction',['ClsTransactionValue',function (ClsTransactionValue) {
 
     /*** Constructor, with class name*/
     function ClsTransaction(ID, Name, TransactionValues, TypeDescription,TypeID, UserID ) {
@@ -7,26 +7,23 @@
         this.Name = Name || undefined,
         this.TypeDescription = TypeDescription || undefined,
         this.TypeID = TypeID || undefined,
-        this.TransactionValues = TransactionValues || [new clsTransactionValue()]
+        this.TransactionValues = TransactionValues || [new ClsTransactionValue()]
         this.UserID = UserID || undefined,
-        this.message = undefined || undefined,
-        this.expanded = false;
+        this.editable = false;
     }
 
     /*** Static method, assigned to class* Instance ('this') is not available in static context*/
     ClsTransaction.build = function (data) {
 
         return new ClsTransaction (
-            ID = data.ID,
-            Name = data.Name,
-            TransactionValues = data.TransactionValues.map(clsTransactionValue.build),
-            TypeDescription = data.TypeDescription,
-            TypeID = data.TypeID,
-            UserID = data.UserID,
-            message = undefined,
-            editable = false,
-            expanded = false
-            )
+            data.ID,
+            data.Name,
+            data.TransactionValues.map(ClsTransactionValue.build),
+            data.TypeDescription,
+            data.TypeID,
+            data.UserID,
+            false
+            );
     };
 
     /*** Return the constructor function*/
