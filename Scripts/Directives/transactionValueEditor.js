@@ -52,7 +52,7 @@ function (ClsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
                     tvEditCtrl.collapse();
                   });
               };
-              $rootScope.broadcast('renderChart');
+              $rootScope.$broadcast('renderChart');
             };
 
             this.cancel = function() {

@@ -1,6 +1,6 @@
 /* global budgeterDirectives */
-budgeterDirectives.directive('transactionList',['ClsTransaction','transactionMgr','notifications','$rootScope',
-function (ClsTransaction,transactionMgr,notifications,$rootScope) {
+budgeterDirectives.directive('transactionList',['ClsTransaction','ClsTransactionValue','transactionMgr','notifications','$rootScope',
+function (ClsTransaction,ClsTransactionValue, transactionMgr,notifications,$rootScope) {
 	
 	return {
 		templateUrl: 'Views/Templates/transactionList.html',
@@ -31,7 +31,6 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 				  	return true;
 				  } 
       		};
-
 
 		    this.cancelNewTransaction = function () {
 		        tListCtrl.listmgr.addMode = false;
@@ -78,6 +77,10 @@ function (ClsTransaction,transactionMgr,notifications,$rootScope) {
 	                });
 	            };
           };
+		  
+		  this.createNewTv = function(){
+			  return new ClsTransactionValue;
+		  }
 			
 		  refresh();
 			
