@@ -187,7 +187,10 @@ function (forecastMgr,$timeout,forecastParams) {
                     .attr("width", width / data.length)
                     .attr("y", y(0))
                     .attr("height", 0)
-                    .style("fill", function (d) { return color(d.name); });
+                    .style("fill", function (d) { return color(d.name); })
+                    .on('click', function(d) {
+                       console.log(d);
+                        });
                 
                 //Animate the bar transition
                 bars.selectAll("rect")

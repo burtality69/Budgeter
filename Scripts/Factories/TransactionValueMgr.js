@@ -28,7 +28,7 @@ function ($http, $q, sessionService, ClsTransactionValue) {
 
         //var tv = ClsTransactionValue.formatforApi();
 
-        $http({method: 'POST',url: apiroot ,headers: headers,data: ClsTransactionValue })
+        $http({method: 'POST',url: apiroot ,headers: headers,data: ClsTransactionValue.formatforApi() })
             .success(function (response) {
                 result.resolve(response);
             })
@@ -43,9 +43,7 @@ function ($http, $q, sessionService, ClsTransactionValue) {
 
         var result = $q.defer();
 
-        var tv = ClsTransactionValue.formatforApi();
-
-        $http({method: 'PUT', url: apiroot + '/' + tv.ID, headers: headers, data: ClsTransactionValue})
+        $http({method: 'PUT', url: apiroot + '/' + ClsTransactionValue.ID, headers: headers, data: ClsTransactionValue.formatforApi()})
             .success(function (response) {
                 result.resolve(response);
             })

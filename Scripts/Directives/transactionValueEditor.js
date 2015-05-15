@@ -1,13 +1,13 @@
 ﻿budgeterDirectives.directive('transactionValueEditor',
-['ClsTransactionValue','transactionValueMgr','translistDropdowns','notifications',
-function (ClsTransactionValue,transactionValueMgr,translistDropdowns,notifications) {
+['ClsTransactionValue','transactionValueMgr','translistDropdowns','notifications','$rootScope',
+function (ClsTransactionValue,transactionValueMgr,translistDropdowns,notifications,$rootScope) {
 // This motherfucker has it's own scope for modifying or inserting TransactionValues
 // It uses an instance of the TransactionValueMgr which interacts with the REST API
 // If it's called in a create context, it creates a new model, otherwise it copies an existing for edit
 
     return {
         restrict: 'EA',
-        scope: {tv: '=',transID: '=',cancel: '@'},       
+        scope: {tv: '=',cancel: '&'},       
         controllerAs: 'tvEditCtrl',
         bindToController: true,
         controller: function (translistDropdowns,notifications) {
@@ -52,6 +52,7 @@ function (ClsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
                     tvEditCtrl.collapse();
                   });
               };
+              $rootScope.broadcast('renderChart');
             };
 
             this.cancel = function() {

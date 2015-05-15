@@ -4,10 +4,7 @@ function (ClsTransactionValue,transactionValueMgr,notifications) {
 
     return {
         restrict: 'EA',
-        scope: {
-          tv: '=',
-          transID: '='
-        },
+        scope: {tv: '='},
         replace: true,
         transclude: true,
         controllerAs: 'tvCtrl',
