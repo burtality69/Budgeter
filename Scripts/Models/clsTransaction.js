@@ -8,8 +8,7 @@
         this.TypeDescription = TypeDescription || undefined,
         this.TypeID = TypeID || undefined,
         this.TransactionValues = TransactionValues || [new ClsTransactionValue()]
-        this.UserID = UserID || undefined,
-        this.editable = false;
+        this.UserID = UserID || undefined
     }
 
     /*** Static method, assigned to class* Instance ('this') is not available in static context*/
@@ -21,8 +20,7 @@
             data.TransactionValues.map(ClsTransactionValue.build),
             data.TypeDescription,
             data.TypeID,
-            data.UserID,
-            false
+            data.UserID
             );
     };
 

@@ -5,9 +5,8 @@ budgeterDirectives.directive('transactionValueList',['ClsTransactionValue','Tran
 		replace: true,
 		scope: {list: '='},
 		controllerAs: 'tvListController',
-		controller: function() {
-						
-			
+		controller: function() {				
+
 		}
 	};
 	

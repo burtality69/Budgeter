@@ -7,64 +7,47 @@ function (ClsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
 
     return {
         restrict: 'EA',
-        scope: {tv: '=',cancel: '&'},       
+        scope: {tvlistmgr: '='},
+        require: '^transaction',       
         controllerAs: 'tvEditCtrl',
         bindToController: true,
         controller: function (translistDropdowns,notifications) {
             
             var tvEditCtrl = this;
             
-            var backup = undefined;
-            var newrecord = false;
-
-            this.collapse = function() {
-              tvEditCtrl.tv.editable = false;
-            };
-
+            this.tv = this.tvlistmgr.tvToEdit; 
+            
+            var backup = ClsTransactionValue.build(this.tvlistmgr.tvToEdit);
+            
+            //Populate the dropdowns
             translistDropdowns.getTransactionFrequencies().then(
               function(response) {
                 tvEditCtrl.frequencies = response;
             });
 
-            //Populate model depending on context
-            if (this.tv === undefined) {
-              tvEditCtrl.tv = new ClsTransactionValue;
-              tvEditCtrl.tv.TransactionID = tvEditCtrl.id;
-              newrecord = true;
-            } else {
-              backup = ClsTransactionValue.build(tvEditCtrl.tv);
-              newrecord = false;
-              tvEditCtrl.transID = tvEditCtrl.tv.TransactionID;
-            };
-
+            //Submit a transactionvalue using post or put depending on new
             this.submit = function () {
 
-              if (newrecord) {
+              if (tvEditCtrl.tvlistmgr.tvToEdit.ID === undefined) {
                 transactionValueMgr.post(tvEditCtrl.tv).then(
                   function (response) {
                     notifications.showSuccess({message: 'Task Updated'});
-                    tvEditCtrl.collapse();
+                    tvEditCtrl.tvlistmgr.addEdit = false;
                   });
               } else {
                 transactionValueMgr.put(tvEditCtrl.tv).then(
                   function (response) {
                     notifications.showSuccess({message: 'Your task posted successfully'});
-                    tvEditCtrl.collapse();
+                    tvEditCtrl.tvlistmgr.addEdit = false;
                   });
               };
               $rootScope.$broadcast('renderChart');
             };
 
             this.cancel = function() {
-
-              if (newrecord) {
-                tvEditCtrl.cancel();
-              } else {
-                tvEditCtrl.tv = backup;
-                tvEditCtrl.tv.editable = false;
+              tvEditCtrl.tvlistmgr.addEdit = false;
               };
-            };
-
+              
             this.delete = function () {
               transactionValueMgr.delete(tvEditCtrl.tv.ID).then(
                 function (response) {
@@ -88,7 +71,7 @@ function (ClsTransactionValue,transactionValueMgr,translistDropdowns,notificatio
                       '</div>' +
                       '<div>' +
                           '<label for="Value">Value</label>' +
-                          '<input class="input-xs-flat" type="number" data-ng-model="tvEditCtrl.tv.Value">' +
+                          '<input class="input-xs-flat" type="number" step=100 data-ng-model="tvEditCtrl.tv.Value">' +
                       '</div>' +
                       '<div>' +
                           '<label for="End_date">End date</label>' +

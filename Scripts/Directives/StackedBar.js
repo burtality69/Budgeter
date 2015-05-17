@@ -12,13 +12,13 @@ function (forecastMgr,$timeout,forecastParams) {
                     '<div class="cube1"></div>' +
                     '<div class="cube2"></div>' +
                   '</div>' +
-                  '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>' +
                   '<div class="headlines">' +
                       '<headline-item class="headline income" icon="fa fa-plus fa-3x" name="Income" value="graphCtrl.headlines.income"></headline-item>' +
                       '<headline-item class="headline spending" icon="fa fa-minus fa-3x" name="Spending" value="graphCtrl.headlines.spending"></headline-item>' +
                       '<headline-item class="headline balance" icon="fa fa-university fa-3x" name="Balance" value="graphCtrl.headlines.balance"></headline-item>' +
                       '<headline-item class="headline savings" icon="fa fa-money fa-3x" name="Savings" value="graphCtrl.headlines.savings"></headline-item>' +
-                  '</div>',
+                  '</div>' +
+                  '<div id="graphdiv" class="graphcontainer clearfix" ng-show="!graphCtrl.spin"></div>',
         controller: ['$scope',function ($scope) {
             
             var graphCtrl = this;
@@ -33,7 +33,7 @@ function (forecastMgr,$timeout,forecastParams) {
                     function (response) {
                     
                         graphCtrl.data = response;
-            
+                      
                         var lastrow = response[response.length - 1];
                         var income = 0;
                         var outgoing = 0;

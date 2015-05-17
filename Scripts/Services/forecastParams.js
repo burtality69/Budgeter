@@ -22,4 +22,28 @@ budgeterServices.service('forecastParams',['$q',function () {
 		};
 	};
 	
+	//Array of excluded keys for quick 'what if' style analyses
+	
+	var exclusions = {
+		transactions: [],
+		transactionValues: []
+	};
+	
+	this.excludeTrans = function(ID) {
+		exclusions.transactions.push(ID);
+	};
+	
+	this.includeTrans = function(ID) {
+		exclusions.transactions.splice(exclusions.indexOf(ID),1);
+	};
+	
+	this.excludeTv = function(ID) {
+		exclusions.transactionValues.push(ID);
+		console.log('You have excluded TV' + ID);
+	};
+	
+	this.includeTv = function(ID) {
+		exclusions.transactionValues.splice(exclusions.transactionValues.indexOf(ID),1);
+	};
+	
 }]);

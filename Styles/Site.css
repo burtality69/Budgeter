@@ -218,6 +218,7 @@ input:focus {
 .headlines {
   display:flex;
   justify-content:space-between;
+  padding-top: 10px;
 }
 
 .headline {
@@ -307,6 +308,10 @@ input:focus {
 .transactionlist .transaction {
     border-bottom: 1px solid #ddd;
     padding: 5px 15px;
+}
+
+.transactionlist .transactioneditor {
+  padding: 5px 0 5px 0;
 }
 
 .activetransaction {

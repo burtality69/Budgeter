@@ -1,6 +1,7 @@
+/* global budgeterModels */
 budgeterModels.factory('ClsTransactionValue',['dateParser',function (dateParser) {
 
-  function ClsTransactionValue(ID, TransactionID, Value, FrequencyID, FrequencyDescription, Day, Start_date, End_date) {
+  function ClsTransactionValue(ID, TransactionID, Value, FrequencyID, FrequencyDescription, Day, Start_date, End_date,Include) {
       // Public properties, assigned to the instance ('this')
       this.ID = ID,
       this.TransactionID = TransactionID,
@@ -10,23 +11,21 @@ budgeterModels.factory('ClsTransactionValue',['dateParser',function (dateParser)
       this.Day = Day,
       this.Start_date = Start_date || new Date(),
       this.End_date = End_date || new Date(),
-      this.editable = false,
-      this.expanded = false
+      this.include = Include || true;
   }
 
   ClsTransactionValue.build = function (data) {
 
       return new ClsTransactionValue (
-          ID = data.ID,
-          TransactionID = data.TransactionID,
-          Value = data.Value,
-          FrequencyID = data.FrequencyID,
-          FrequencyDescription = data.FrequencyDescription,
-          Day = data.Day,
-          Start_date = dateParser.getUTCDate(data.Start_date),
-          End_date = dateParser.getUTCDate(data.End_date),
-          editable = false,
-          expanded = false
+          data.ID,
+          data.TransactionID,
+          data.Value,
+          data.FrequencyID,
+          data.FrequencyDescription,
+          data.Day,
+          dateParser.getUTCDate(data.Start_date),
+          dateParser.getUTCDate(data.End_date),
+          data.include
     );
   };
 
@@ -38,7 +37,8 @@ budgeterModels.factory('ClsTransactionValue',['dateParser',function (dateParser)
       FrequencyID: this.FrequencyID,
       Day: this.Day,
       Start_date: this.Start_date.toLocaleDateString('en-US'),
-      End_date: this.End_date.toLocaleDateString('en-US')
+      End_date: this.End_date.toLocaleDateString('en-US'),
+      include: this.include
     };
   };
 
